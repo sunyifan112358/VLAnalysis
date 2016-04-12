@@ -26,5 +26,5 @@ class Figure(object):
 
     def save_eps(self, file_name):
         plt.tight_layout()
-        plt.savefig(file_name, format='eps', bbox_inches='tight', 
+        plt.savefig(file_name + ".eps", format='eps', bbox_inches='tight', 
                 pad_inches = 0)

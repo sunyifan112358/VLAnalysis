@@ -63,3 +63,7 @@ target/
 
 # VIM temp files
 .*.swp
+
+# Generate figures
+*.eps
+*.png
