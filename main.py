@@ -11,12 +11,8 @@ def main():
     for session in sessions:
         print(session)
 
-    mwFigure = MoneyWelfareFigure()
-    mwFigure.set_size(8, 6)
-    mwFigure.initialize()
-    mwFigure.draw(sessions)
-    mwFigure.show()
-    
+    plot_all_figures(sessions)
+
 def get_all_files():
     files = os.listdir("raw_data")
     return files
@@ -30,6 +26,16 @@ def parse_all_sessions(files):
         sessions.append(session)
         
     return sessions
+
+def plot_all_figures(sessions):
+    plot_money_welfare_figure(sessions)
+
+def plot_money_welfare_figure(sessions):
+    figure = MoneyWelfareFigure()
+    figure.set_size(8, 6)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.show()
 
 if __name__ == "__main__":
     main();

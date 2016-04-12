@@ -67,6 +67,7 @@ class LogParser(object):
 
     def create_session(self):
         self.session = Session()
+        self.session.name = self.file_name
         print("Session created: " + self.file_name)
 
     def try_session_end(self, line):
