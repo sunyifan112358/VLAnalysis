@@ -1,8 +1,11 @@
 #!/usr/bin/python
 
 import os
+
 from log_parser import LogParser
 from money_welfare_figure import MoneyWelfareFigure
+from money_distribution_figure import MoneyDistributionFigure
+from money_scatter_figure import MoneyScatterFigure
 
 def main():
     files = get_all_files()
@@ -29,13 +32,33 @@ def parse_all_sessions(files):
 
 def plot_all_figures(sessions):
     plot_money_welfare_figure(sessions)
+    plot_money_distribution_figure(sessions)
+    plot_money_scatter_figure(sessions)
 
 def plot_money_welfare_figure(sessions):
     figure = MoneyWelfareFigure()
     figure.set_size(8, 6)
+    figure.set_font_size(18)
     figure.initialize()
     figure.draw(sessions)
-    figure.show()
+    figure.save_eps("money_welfare")
+
+def plot_money_distribution_figure(sessions):
+    figure = MoneyDistributionFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('money_distribution')
+
+def plot_money_scatter_figure(sessions):
+    figure = MoneyScatterFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('money_scatter')
+
 
 if __name__ == "__main__":
     main();

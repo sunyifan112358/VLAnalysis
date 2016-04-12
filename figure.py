@@ -12,6 +12,15 @@ class Figure(object):
     def initialize(self):
         self.fig, self.ax = plt.subplots(figsize = (self.width, self.height))
 
+    def set_font_size(self, font_size):
+        self.font_size = font_size
+
+    def set_x_label(self, label):
+        self.ax.set_xlabel(label, fontsize = self.font_size)
+
+    def set_y_label(self, label):
+        self.ax.set_ylabel(label, fontsize = self.font_size)
+
     def show(self):
         plt.show()
 

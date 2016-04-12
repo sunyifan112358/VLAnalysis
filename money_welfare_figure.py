@@ -1,5 +1,5 @@
-
 import matplotlib.pyplot as plt
+
 from figure import Figure
 
 class MoneyWelfareFigure(Figure):
@@ -24,5 +24,8 @@ class MoneyWelfareFigure(Figure):
             plt.plot(welfare[0], money[0], 'rD')
             plt.plot(welfare[1], money[1], 'go')
             plt.plot(welfare[2], money[2], 'bx')
+
+        self.set_x_label("Welfare")
+        self.set_x_label("Earnings")
             
 
