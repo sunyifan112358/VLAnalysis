@@ -14,7 +14,7 @@ class MoneyScatterFigure(Figure):
             money.append(session.challenge1.money)
             money.append(session.challenge2.money)
             money.append(session.challenge3.money)
-            plt.plot(money, "-ko", linewidth = 0.2)
+            plt.plot([1, 2, 3], money, "-ko", linewidth = 0.2)
 
         self.set_x_label("Challenge")
         self.set_y_label("Earnings")

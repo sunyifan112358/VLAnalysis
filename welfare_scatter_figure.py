@@ -14,7 +14,7 @@ class WelfareScatterFigure(Figure):
             welfare.append(session.challenge1.welfare)
             welfare.append(session.challenge2.welfare)
             welfare.append(session.challenge3.welfare)
-            plt.plot(welfare, "-ko", linewidth = 0.2)
+            plt.plot([1, 2, 3], welfare, "-ko", linewidth = 0.2)
 
         self.set_x_label("Challenge")
         self.set_y_label("Earnings")

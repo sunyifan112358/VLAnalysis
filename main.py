@@ -64,6 +64,7 @@ def plot_money_welfare_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps("money_welfare")
+    figure.save_png("money_welfare")
 
 def plot_money_distribution_figure(sessions):
     figure = MoneyDistributionFigure()
