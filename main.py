@@ -72,6 +72,7 @@ def plot_money_distribution_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('money_distribution')
+    figure.save_png('money_distribution')
 
 def plot_money_scatter_figure(sessions):
     figure = MoneyScatterFigure()
@@ -80,6 +81,7 @@ def plot_money_scatter_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('money_scatter')
+    figure.save_png('money_scatter')
 
 def plot_welfare_distribution_figure(sessions):
     figure = WelfareDistributionFigure()
@@ -88,6 +90,7 @@ def plot_welfare_distribution_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('welfare_distribution')
+    figure.save_png('welfare_distribution')
 
 def plot_welfare_scatter_figure(sessions):
     figure = WelfareScatterFigure()
@@ -96,6 +99,7 @@ def plot_welfare_scatter_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('welfare_scatter')
+    figure.save_png('welfare_scatter')
 
 def plot_real_time_distribution_figure(sessions):
     figure = RealTimeDistributionFigure()
@@ -104,6 +108,7 @@ def plot_real_time_distribution_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('real_time_distribution')
+    figure.save_png('real_time_distribution')
 
 def plot_dendrogram_figure(sessions):
     figure = DendrogramFigure()
@@ -112,6 +117,7 @@ def plot_dendrogram_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('dendrogram')
+    figure.save_png('dendrogram')
 
 def plot_acceptance_money_figure(sessions):
     figure = AcceptanceMoneyFigure()
@@ -120,6 +126,7 @@ def plot_acceptance_money_figure(sessions):
     figure.initialize()
     figure.draw(sessions)
     figure.save_eps('acceptance_money')
+    figure.save_png('acceptance_money')
 
 
 if __name__ == "__main__":

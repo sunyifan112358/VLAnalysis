@@ -28,3 +28,9 @@ class Figure(object):
         plt.tight_layout()
         plt.savefig(file_name + ".eps", format='eps', bbox_inches='tight', 
                 pad_inches = 0)
+
+    def save_png(self, file_name):
+        plt.savefig(file_name + ".png", format='png')
+
+
+
