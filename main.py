@@ -12,6 +12,7 @@ from welfare_scatter_figure import WelfareScatterFigure
 from real_time_distribution_figure import RealTimeDistributionFigure
 from dendrogram_figure import DendrogramFigure
 from acceptance_money_figure import AcceptanceMoneyFigure
+from key_stroke_decision_figure import KeyStrokeDecisionFigure
 
 def main():
     files = get_all_files()
@@ -56,6 +57,7 @@ def plot_all_figures(sessions):
     plot_real_time_distribution_figure(sessions)
     plot_dendrogram_figure(sessions)
     plot_acceptance_money_figure(sessions)
+    plot_key_stroke_decision_figure(sessions)
 
 def plot_money_welfare_figure(sessions):
     figure = MoneyWelfareFigure()
@@ -129,6 +131,14 @@ def plot_acceptance_money_figure(sessions):
     figure.save_eps('acceptance_money')
     figure.save_png('acceptance_money')
 
+def plot_key_stroke_decision_figure(sessions):
+    figure = KeyStrokeDecisionFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('key_stroke_decision')
+    figure.save_png('key_stroke_decision')
 
 if __name__ == "__main__":
     main();

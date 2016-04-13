@@ -5,6 +5,7 @@ from session import Session
 from run import Run
 from key_stroke_action import KeyStrokeAction
 from recommendation_action import RecommendationAction
+from phase_action import PhaseAction
 
 class LogParser(object):
     
@@ -53,6 +54,14 @@ class LogParser(object):
             '"details":{"current_time":"([0-9]+/[0-9]+/[0-9]+ '
             '[0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", "isAccepted":"(True|False)", '
             '"ship":"([0-9]+)", "priority":"([0-9]+)"*')
+
+        self.phase_action_re = re.compile(
+            '{"type":"action", "data":{"run_id":"[0-9a-fA-f\-]+", '
+            '"action_seqno":"[0-9]+", "type":"[0-9]+", '
+            '"client_time":"([0-9\.E\-]+)", '
+            '"details":{"current_time":'
+            '"([0-9]+/[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", '
+            '"phase":"(Decision|Simulation)"}}}')
     
     def parse(self, file_name):
         self.file_name = file_name
@@ -75,6 +84,9 @@ class LogParser(object):
             return
 
         if self.try_recommendation_action(line):
+            return
+
+        if self.try_phase_action(line):
             return
 
         if self.try_run_end(line):
@@ -189,10 +201,17 @@ class LogParser(object):
         if action.accepted:
             self.run.accepted_recommendation += 1
 
+    def try_phase_action(self, line):
+        match = self.phase_action_re.match(line)
+        if match != None:
+            self.create_phase_action(match)
+            return True
+        return False
 
-
-
-    
-
+    def create_phase_action(self, match):
+        action = PhaseAction()
+        action.real_time = float(match.group(1))
+        action.virtual_time = self.parse_time(match.group(2))
+        action.phase = match.group(3)
         
-
+        self.run.add_action(action)
