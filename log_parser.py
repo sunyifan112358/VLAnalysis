@@ -1,7 +1,10 @@
 import re
+import time
 
 from session import Session
 from run import Run
+from key_stroke_action import KeyStrokeAction
+from recommendation_action import RecommendationAction
 
 class LogParser(object):
     
@@ -34,6 +37,22 @@ class LogParser(object):
             '"([0-9]+/[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", ' +
             '"budget":"([0-9\.\-E]+)", "welfare":"([0-9\.\-E]+)", ' +
             '"dock_utilization":"([0-9\.\-E]+)"}}}')
+
+        self.key_stroke_action_re = re.compile(
+            '{"type":"action", "data":{"run_id":"[0-9a-fA-F\-]+", '
+            '"action_seqno":"[0-9]+", "type":"[0-9]+", '
+            '"client_time":"([0-9\.E\-]+)", '
+            '"details":{"current_time":"([0-9]+/[0-9]+/[0-9]+ '
+            '[0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", "keystroke":"([A-Za-z0-9]+)", '
+            '"mouse_x":"([0-9\.E\-]+)", "mouse_y":"([0-9\.E\-]+)"}}}')
+
+        self.recommendation_action_re = re.compile(
+            '{"type":"action", "data":{"run_id":"[0-9a-fA-F\-]+", '
+            '"action_seqno":"[0-9]+", "type":"[0-9]+", '
+            '"client_time":"([0-9\.E\-]+)", '
+            '"details":{"current_time":"([0-9]+/[0-9]+/[0-9]+ '
+            '[0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", "isAccepted":"(True|False)", '
+            '"ship":"([0-9]+)", "priority":"([0-9]+)"*')
     
     def parse(self, file_name):
         self.file_name = file_name
@@ -50,6 +69,12 @@ class LogParser(object):
             return
 
         if self.try_run_begin(line):
+            return
+
+        if self.try_key_stroke_action(line):
+            return
+
+        if self.try_recommendation_action(line):
             return
 
         if self.try_run_end(line):
@@ -109,6 +134,8 @@ class LogParser(object):
         match = self.run_end_re.match(line)
         if match != None:
             self.end_run(match)
+            return True
+        return False
         
     def end_run(self, match):
         self.run.money = float(match.group(3))
@@ -117,6 +144,53 @@ class LogParser(object):
         self.run.end_real_time = float(match.group(1))
 
         self.run = None
+
+    def try_key_stroke_action(self, line):
+        match = self.key_stroke_action_re.match(line)
+        if match != None:
+            self.create_key_stroke_action(match)
+            return True
+        return False
+
+    def create_key_stroke_action(self, match):
+        action = KeyStrokeAction()
+        action.real_time = float(match.group(1))
+        action.virtual_time = self.parse_time(match.group(2))
+        action.key = match.group(3)
+        action.mouse_x = float(match.group(4))
+        action.mouse_y = float(match.group(5))
+
+        self.run.add_action(action)
+        self.run.num_key_action += 1
+
+    def parse_time(self, time_string):
+        if 'M' in time_string:
+            return time.strptime(time_string, "%m/%d/%Y %I:%M:%S %p")
+        else:
+            return time.strptime(time_string, "%m/%d/%Y %H:%M:%S")
+
+    def try_recommendation_action(self, line):
+        match = self.recommendation_action_re.match(line)
+        if match != None:
+            self.create_recommendation_action(match)
+            return True
+        return False
+
+    def create_recommendation_action(self, match):
+        action = RecommendationAction()
+        action.real_time = float(match.group(1))
+        action.virtual_time = self.parse_time(match.group(2))
+        action.accepted = (match.group(3) == 'True')
+        action.ship_id = int(match.group(4))
+        action.priority = int(match.group(5))
+
+        self.run.add_action(action)
+        self.run.total_recommendation += 1
+        if action.accepted:
+            self.run.accepted_recommendation += 1
+
+
+
 
     
 

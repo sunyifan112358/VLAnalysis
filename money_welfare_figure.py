@@ -26,6 +26,6 @@ class MoneyWelfareFigure(Figure):
             plt.plot(welfare[2], money[2], 'bx')
 
         self.set_x_label("Welfare")
-        self.set_x_label("Earnings")
+        self.set_y_label("Earnings")
             
 
