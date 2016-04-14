@@ -17,9 +17,9 @@ class KeyStrokeDecisionFigure(Figure):
             c2_data = self.process_challenge(session.challenge2)
             c3_data = self.process_challenge(session.challenge3)
 
-            c1_step = 1.0 / (len(c1_data) + 1)
-            c2_step = 1.0 / (len(c2_data) + 1)
-            c3_step = 1.0 / (len(c3_data) + 1)
+            c1_step = 1.0 / (len(c1_data))
+            c2_step = 1.0 / (len(c2_data))
+            c3_step = 1.0 / (len(c3_data))
 
             x = []
             curr = 0
@@ -33,7 +33,7 @@ class KeyStrokeDecisionFigure(Figure):
                 x.append(curr)
                 curr += c3_step
 
-            plt.plot(x, c1_data + c2_data + c3_data, linewidth = 0.2)
+            plt.plot(x, c1_data + c2_data + c3_data, '-ko', linewidth = 0.2)
                
 
 
