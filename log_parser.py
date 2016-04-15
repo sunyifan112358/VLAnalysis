@@ -6,6 +6,8 @@ from run import Run
 from key_stroke_action import KeyStrokeAction
 from recommendation_action import RecommendationAction
 from phase_action import PhaseAction
+from priority_action import PriorityAction
+from cleaning_action import CleaningAction
 
 class LogParser(object):
     
@@ -62,6 +64,20 @@ class LogParser(object):
             '"details":{"current_time":'
             '"([0-9]+/[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", '
             '"phase":"(Decision|Simulation)"}}}')
+
+        self.priority_action_re = re.compile(
+            '{"type":"action", "data":{"run_id":"[0-9a-fA-F\-]+", '
+            '"action_seqno":"[0-9]+", "type":"[0-9]+", '
+            '"client_time":"([0-9E\-\.]+)", "details":{"current_time":'
+            '"([0-9]+/[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", '
+            '"ship_id":"([0-9]+)", "new_priority":"([0-9]+)"}}}')
+
+        self.cleaning_action_re = re.compile(
+            '{"type":"action", "data":{"run_id":"[0-9a-fA-f\-]+", '
+            '"action_seqno":"[0-9]+", "type":"[0-9]+", "client_time":'
+            '"([0-9\.\-E]+)", "details":{"current_time":'
+            '"([0-9]+/[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", '
+            '"solution":"([a-zA-Z]+)"}}}')
     
     def parse(self, file_name):
         self.file_name = file_name
@@ -87,6 +103,12 @@ class LogParser(object):
             return
 
         if self.try_phase_action(line):
+            return
+
+        if self.try_cleaning_action(line):
+            return
+
+        if self.try_priority_action(line):
             return
 
         if self.try_run_end(line):
@@ -214,4 +236,33 @@ class LogParser(object):
         action.virtual_time = self.parse_time(match.group(2))
         action.phase = match.group(3)
         
+        self.run.add_action(action)
+
+    def try_priority_action(self, line):
+        match = self.priority_action_re.match(line)
+        if match != None:
+            self.create_priority_action(match)
+            return True
+        return False
+
+    def create_priority_action(self, match):
+        action = PriorityAction()
+        action.real_time = float(match.group(1))
+        action.virtual_time = self.parse_time(match.group(2))
+        action.ship_id = int(match.group(3))
+        action.priority = int(match.group(4))
+        self.run.add_action(action)
+
+    def try_cleaning_action(self, line):
+        match = self.cleaning_action_re.match(line)
+        if match != None:
+            self.create_cleaning_action(match)
+            return True
+        return False
+
+    def create_cleaning_action(self, match):
+        action = CleaningAction()
+        action.real_time = float(match.group(1))
+        action.virtual_time = self.parse_time(match.group(2))
+        action.solution = match.group(3)
         self.run.add_action(action)

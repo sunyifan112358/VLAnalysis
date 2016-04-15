@@ -1,3 +1,5 @@
+from cleaning_action import CleaningAction
+
 class Run(object):
     
     def __init__(self):
@@ -35,6 +37,8 @@ class Run(object):
             "\tnum_recommendation: " + str(self.total_recommendation) + "\n"
             "\tnum_accepted_recommendation: " + 
                 str(self.accepted_recommendation) + "\n"
+            "\toil_cleaning_solution: " + 
+                self.get_oil_cleaning_solution() + '\n'
         )
 
         return string
@@ -54,4 +58,11 @@ class Run(object):
         else:
             return 1.0 * self.accepted_recommendation / \
                     self.total_recommendation
+
+    def get_oil_cleaning_solution(self):
+        solution = "None"
+        for action in self.actions:
+            if isinstance(action, CleaningAction):
+                solution = action.solution
+        return solution
 

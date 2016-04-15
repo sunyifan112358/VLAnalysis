@@ -17,4 +17,4 @@ class WelfareScatterFigure(Figure):
             plt.plot([1, 2, 3], welfare, "-ko", linewidth = 0.2)
 
         self.set_x_label("Challenge")
-        self.set_y_label("Earnings")
+        self.set_y_label("Welfare")

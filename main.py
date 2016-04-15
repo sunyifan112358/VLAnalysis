@@ -13,6 +13,8 @@ from real_time_distribution_figure import RealTimeDistributionFigure
 from dendrogram_figure import DendrogramFigure
 from acceptance_money_figure import AcceptanceMoneyFigure
 from key_stroke_decision_figure import KeyStrokeDecisionFigure
+from solution_money_figure import SolutionMoneyFigure
+from solution_welfare_figure import SolutionWelfareFigure
 
 def main():
     files = get_all_files()
@@ -58,6 +60,8 @@ def plot_all_figures(sessions):
     plot_dendrogram_figure(sessions)
     plot_acceptance_money_figure(sessions)
     plot_key_stroke_decision_figure(sessions)
+    plot_solution_money_figure(sessions)
+    plot_solution_welfare_figure(sessions)
 
 def plot_money_welfare_figure(sessions):
     figure = MoneyWelfareFigure()
@@ -139,6 +143,28 @@ def plot_key_stroke_decision_figure(sessions):
     figure.draw(sessions)
     figure.save_eps('key_stroke_decision')
     figure.save_png('key_stroke_decision')
+
+def plot_solution_money_figure(sessions):
+    figure = SolutionMoneyFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('solution_money')
+    figure.save_png('solution_money')
+
+
+def plot_solution_welfare_figure(sessions):
+    figure = SolutionWelfareFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('solution_welfare')
+    figure.save_png('solution_welfare')
+
+
+
 
 if __name__ == "__main__":
     main();
