@@ -24,7 +24,7 @@ class DendrogramFigure(Figure):
         dendrogram(Z, leaf_label_func = self.get_leaf_label,
             distance_sort = True)
 
-        cluster = fcluster(Z, 4, criterion='distance')
+        cluster = fcluster(Z, 3, criterion='distance')
     
         self.tag_sessions(cluster)
 

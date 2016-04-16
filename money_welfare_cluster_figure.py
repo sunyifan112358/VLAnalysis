@@ -19,6 +19,8 @@ class MoneyWelfareClusterFigure(Figure):
         self.data = [[], [], []]
         self.connection = []
 
+        self.money_avg, self.welfare_avg = self.get_mean(sessions)
+
         for session in sessions:
             if not session.give_recommendation():
                 continue
@@ -38,7 +40,8 @@ class MoneyWelfareClusterFigure(Figure):
             self.data[challenge_id].append([])
 
         data_list = self.data[challenge_id][cluster]
-        data_list.append((challenge.money, challenge.welfare))
+        data_list.append((challenge.money - self.money_avg[challenge_id], 
+                    challenge.welfare - self.welfare_avg[challenge_id]))
 
     def add_connections(self, session):
         self.connection.append((0, session.cluster_tags['money_welfare_0'] - 1, 
@@ -82,7 +85,7 @@ class MoneyWelfareClusterFigure(Figure):
 
             cluster_id = 0
             for cluster in challenge:    
-                color = color_list[cluster_id * 4]
+                color = color_list[cluster_id * 2]
                 plt.plot(cluster[1], cluster[0], marker_style, 
                         color = color, markersize = 12)
                 cluster_id += 1
@@ -123,6 +126,25 @@ class MoneyWelfareClusterFigure(Figure):
         x = [self.cluster_centers[from_challenge][from_cluster][1], 
                 self.cluster_centers[to_challenge][to_cluster][1]]
         plt.plot(x, y, 'k', linewidth = line_thickness, color = color)
+
+    def get_mean(self, sessions):
+        money = [[], [], []]
+        welfare = [[], [], []]
+
+        money_avg = [0, 0, 0]
+        welfare_avg = [0, 0, 0]
+
+        for session in sessions:
+            for i in range(len(session.challenge)):
+                money[i].append(session.challenge[i].money)
+                welfare[i].append(session.challenge[i].welfare)
+
+        for i in range(len(money)):
+            money_avg[i] = sum(money[i])/len(money[i])
+            welfare_avg[i] = sum(welfare[i])/len(welfare[i])
+
+        return money_avg, welfare_avg
+
 
 
 

@@ -6,6 +6,8 @@ class CsvGenerator(object):
     def generate(self, sessions):
         csv_file = open("data.csv", "w")
         csv_file.write(
+                'session_id, '
+                'tag,'
                 'c1.money, c1.welfare, '
                 'c1.dock_utilization, '
                 'c1.real_time, '
@@ -30,6 +32,9 @@ class CsvGenerator(object):
                 '\n')
 
         for session in sessions:
+            csv_file.write(
+                '' + str(session.id) + ', '
+                '' + str(session.bg_tag) + ', ')
             for challenge in session.challenge:
                 csv_file.write(
                     '' + str(challenge.money) + ', '

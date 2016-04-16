@@ -17,6 +17,10 @@ from key_stroke_decision_figure import KeyStrokeDecisionFigure
 from solution_money_figure import SolutionMoneyFigure
 from solution_welfare_figure import SolutionWelfareFigure
 from money_welfare_cluster_figure import MoneyWelfareClusterFigure
+from bg_money_distribution_figure import BgMoneyDistributionFigure
+from bg_welfare_distribution_figure import BgWelfareDistributionFigure
+from bg_accept_rant_figure import BgAcceptanceRateFigure
+
 
 def main():
     files = get_all_files()
@@ -75,6 +79,10 @@ def plot_all_figures(sessions):
     plot_solution_welfare_figure(sessions)
 
     plot_money_welfare_cluster_figure(sessions)
+
+    plot_bg_money_distribution_figure(sessions)
+    plot_bg_welfare_distribution_figure(sessions)
+    plot_bg_acceptance_rate_figure(sessions)
 
 def plot_money_welfare_figure(sessions):
     figure = MoneyWelfareFigure()
@@ -186,7 +194,34 @@ def plot_money_welfare_cluster_figure(sessions):
     figure.save_eps('money_welfare_cluster')
     figure.save_png('money_welfare_cluster')
 
+def plot_bg_money_distribution_figure(sessions):
+    figure = BgMoneyDistributionFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('bg_money_distribution')
+    figure.save_png('bg_money_distribution')
 
+def plot_bg_welfare_distribution_figure(sessions):
+    figure = BgWelfareDistributionFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('bg_welfare_distribution')
+    figure.save_png('bg_welfare_distribution')
+
+def plot_bg_acceptance_rate_figure(sessions):
+    figure = BgAcceptanceRateFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('bg_acceptance_rate')
+    figure.save_png('bg_acceptance_rate')
+
+   
 
 
 if __name__ == "__main__":

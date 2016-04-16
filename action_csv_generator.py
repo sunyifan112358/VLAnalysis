@@ -14,18 +14,18 @@ class ActionCsvGenerator(object):
         self.write_header()
 
         for session in sessions:
-            self.session_id += 1
+            self.session_id = session.id
             for challenge in session.challenge:
                 self.generate_run(challenge)
                 self.generate_run(challenge)
                 self.generate_run(challenge)
             self.run_id = 0
 
-        self.session_id = 0
 
     def write_header(self):
         self.csv_file.write(
-            'session_id, challenge, decision_id, action_id, ship_id, priority\n')
+            'session_id, challenge, decision_id, decision_start_time, action_id, '
+            'action_time, ship_id, priority\n')
 
             
     def generate_run(self, run):
@@ -34,6 +34,7 @@ class ActionCsvGenerator(object):
         for action in run.actions:
             if isinstance(action, PhaseAction) and action.phase == "Decision":
                 self.decision_id += 1
+                self.decision_start_time = action.real_time
             elif isinstance(action, PhaseAction) and action.phase == "Simulation":
                 self.action_id = 0
             elif isinstance(action, PriorityAction):
@@ -48,7 +49,9 @@ class ActionCsvGenerator(object):
             '' + str(self.session_id) + ', '
             '' + str(self.run_id) + ', '
             '' + str(self.decision_id) + ', '
+            '' + str(self.decision_start_time) + ', '
             '' + str(self.action_id) + ', '
+            '' + str(action.real_time) + ', '
             '' + str(action.ship_id) + ', '
             '' + str(action.priority) + '\n')
 
