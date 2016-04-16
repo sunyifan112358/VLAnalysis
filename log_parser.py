@@ -16,10 +16,11 @@ class LogParser(object):
         self.next_session_id = 1
 
         self.session_begin_re = re.compile(
-            '{"type":"session_begin", "data":{"game_id":"VistaLights", ' +
-            '"player_id":"[0-9a-fA-F\-]+", "session_id":"[0-9a-fA-F\-]+", ' +
-            '"build_id":"", "version":"2.0", "condition":"", ' +
-            '"client_time":"([0-9\.]+)", "details":{}}}')
+            '{"type":"session_begin", "data":{"game_id":"VistaLights", '
+            '"player_id":"[0-9a-fA-F\-]+", "session_id":"[0-9a-fA-F\-]+", '
+            '"build_id":"", "version":"2.0", "condition":"", '
+            '"client_time":"([0-9\.]+)", '
+            '"details":{"bg":"(CE|STEM|non-STEM)"}}}')
 
         self.session_end_re = re.compile(
             '{"type":"session_end", "data":{"session_id":"[0-9a-fA-F/-]+", ' +
@@ -88,7 +89,9 @@ class LogParser(object):
         for line in lines:
             self.process_line(line)
 
-        return self.session
+        session = self.session
+        self.session = None
+        return session
 
     def process_line(self, line):
         if self.try_session_begin(line):
@@ -121,16 +124,18 @@ class LogParser(object):
     def try_session_begin(self, line):
         match = self.session_begin_re.match(line)
         if match != None:
-            self.create_session()
+            self.create_session(match)
             return True
         return False
 
-    def create_session(self):
+    def create_session(self, match):
         self.session = Session()
         self.session.name = self.file_name
+        self.session.bg_tag = match.group(2)
 
         self.session.id = self.next_session_id
         self.next_session_id += 1
+
 
         print("Session created: " + self.file_name)
 
