@@ -4,6 +4,7 @@ import os
 
 from log_parser import LogParser
 from csv_generator import CsvGenerator
+from action_csv_generator import ActionCsvGenerator
 from money_welfare_figure import MoneyWelfareFigure
 from money_distribution_figure import MoneyDistributionFigure
 from money_scatter_figure import MoneyScatterFigure
@@ -49,6 +50,9 @@ def parse_all_sessions(files):
 def output_data_in_csv(sessions):
     csv_generator = CsvGenerator()
     csv_generator.generate(sessions)
+
+    action_csv_generator = ActionCsvGenerator()
+    action_csv_generator.generate(sessions)
 
 def plot_all_figures(sessions):
     plot_money_welfare_figure(sessions)

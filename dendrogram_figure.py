@@ -23,8 +23,12 @@ class DendrogramFigure(Figure):
         data = []
         for session in sessions:
             point = [
-                session.challenge3.money,
-                session.challenge3.welfare,
+                session.challenge1.money,
+                session.challenge1.welfare,
+                #session.challenge2.money,
+                #session.challenge2.welfare,
+                #session.challenge3.money,
+                #session.challenge3.welfare,
             ]
             data.append(point)
 
