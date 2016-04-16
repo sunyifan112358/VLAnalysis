@@ -1,5 +1,5 @@
 # version:1
-{"type":"session_begin", "data":{"game_id":"VistaLights", "player_id":"ec5612fa-f643-4636-9703-afe05a57f952", "session_id":"f8ff0803-6458-4c56-8e8f-aee2f9c60efb", "build_id":"", "version":"2.0", "condition":"", "client_time":"1460757680.84015", "details":{}}}
+{"type":"session_begin", "data":{"game_id":"VistaLights", "player_id":"ec5612fa-f643-4636-9703-afe05a57f952", "session_id":"f8ff0803-6458-4c56-8e8f-aee2f9c60efb", "build_id":"", "version":"2.0", "condition":"", "client_time":"1460757680.84015", "details":{"bg":"non-STEM"}}}
 {"type":"run_begin", "data":{"session_id":"f8ff0803-6458-4c56-8e8f-aee2f9c60efb", "run_id":"b3a27155-23db-49a3-800d-126e41065657", "run_seqno":"0", "client_time":"1460757695.57204", "details":{"current_time":"10/10/2015 10:10:10 AM", "map":"houston_game_0", "give_recommendation":"False", "with_justification":"False"}}}
 {"type":"action", "data":{"run_id":"b3a27155-23db-49a3-800d-126e41065657", "action_seqno":"0", "type":"1", "client_time":"1460757695.72911", "details":{"current_time":"1/1/2016 12:00:00 PM", "timer":"100"}}}
 {"type":"action", "data":{"run_id":"b3a27155-23db-49a3-800d-126e41065657", "action_seqno":"1", "type":"1", "client_time":"1460757695.73111", "details":{"current_time":"1/1/2016 12:00:00 PM", "phase":"Simulation"}}}

@@ -4,6 +4,7 @@ class Session(object):
         self.name = ""
         self.id = 0
         self.cluster_tags = {}
+        self.bg_tag = ""
 
         self.challenge = [None, None, None]
 
