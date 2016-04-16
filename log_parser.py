@@ -13,6 +13,7 @@ class LogParser(object):
     
     def __init__(self):
         self.session = None
+        self.next_session_id = 1
 
         self.session_begin_re = re.compile(
             '{"type":"session_begin", "data":{"game_id":"VistaLights", ' +
@@ -127,6 +128,10 @@ class LogParser(object):
     def create_session(self):
         self.session = Session()
         self.session.name = self.file_name
+
+        self.session.id = self.next_session_id
+        self.next_session_id += 1
+
         print("Session created: " + self.file_name)
 
     def try_session_end(self, line):
@@ -153,11 +158,11 @@ class LogParser(object):
         if map_name == 'houston_game_0':
             self.run.is_tutorial = True
         elif map_name == 'houston_game_1':
-            self.session.challenge1 = self.run
+            self.session.challenge[0] = self.run
         elif map_name == 'houston_game_2':
-            self.session.challenge2 = self.run
+            self.session.challenge[1] = self.run
         elif map_name == 'houston_game_3':
-            self.session.challenge3 = self.run
+            self.session.challenge[2] = self.run
 
         self.run.give_recommendation = (match.group(5) == 'True')
         self.run.with_justification = (match.group(6) == 'True')

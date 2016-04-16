@@ -2,15 +2,21 @@ class Session(object):
     
     def __init__(self):
         self.name = ""
-        self.challenge1 = None
-        self.challenge2 = None
-        self.challenge3 = None
+        self.id = 0
+        self.cluster_tags = {}
+
+        self.challenge = [None, None, None]
 
     def __str__(self):
-        string = ("Session: " + self.name + "\n"
-            "challenge1: " + str(self.challenge1) + "\n"
-            "challenge2: " + str(self.challenge2) + "\n"
-            "challenge3: " + str(self.challenge3) + "\n")
+        string = ("Session (" + str(self.id) + "): " + self.name + "\n"
+            #"give_recommendation: " + str(self.give_recommendation()) + "\n"
+            "cluster_tags: " + str(self.cluster_tags) + "\n"
+            "challenge1: " + str(self.challenge[0]) + "\n"
+            "challenge2: " + str(self.challenge[1]) + "\n"
+            "challenge3: " + str(self.challenge[2]) + "\n")
         return string
+
+    def give_recommendation(self):
+        return self.challenge[2].give_recommendation
         
     

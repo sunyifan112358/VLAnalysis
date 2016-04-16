@@ -16,17 +16,20 @@ from acceptance_money_figure import AcceptanceMoneyFigure
 from key_stroke_decision_figure import KeyStrokeDecisionFigure
 from solution_money_figure import SolutionMoneyFigure
 from solution_welfare_figure import SolutionWelfareFigure
+from money_welfare_cluster_figure import MoneyWelfareClusterFigure
 
 def main():
     files = get_all_files()
     sessions = parse_all_sessions(files)
-
+    
     for session in sessions:
         print(session)
 
     output_data_in_csv(sessions)
-
     plot_all_figures(sessions)
+
+    for session in sessions:
+        print(session)
 
 def get_all_files():
     all_files = os.listdir("raw_data")
@@ -55,17 +58,23 @@ def output_data_in_csv(sessions):
     action_csv_generator.generate(sessions)
 
 def plot_all_figures(sessions):
+    plot_dendrogram_figure(sessions, 0)
+    plot_dendrogram_figure(sessions, 1)
+    plot_dendrogram_figure(sessions, 2)
+
     plot_money_welfare_figure(sessions)
     plot_money_distribution_figure(sessions)
     plot_money_scatter_figure(sessions)
     plot_welfare_distribution_figure(sessions)
     plot_welfare_scatter_figure(sessions)
     plot_real_time_distribution_figure(sessions)
-    plot_dendrogram_figure(sessions)
+
     plot_acceptance_money_figure(sessions)
     plot_key_stroke_decision_figure(sessions)
     plot_solution_money_figure(sessions)
     plot_solution_welfare_figure(sessions)
+
+    plot_money_welfare_cluster_figure(sessions)
 
 def plot_money_welfare_figure(sessions):
     figure = MoneyWelfareFigure()
@@ -121,14 +130,15 @@ def plot_real_time_distribution_figure(sessions):
     figure.save_eps('real_time_distribution')
     figure.save_png('real_time_distribution')
 
-def plot_dendrogram_figure(sessions):
+def plot_dendrogram_figure(sessions, challenge_number):
     figure = DendrogramFigure()
     figure.set_size(8, 6)
     figure.set_font_size(18)
     figure.initialize()
+    figure.based_on_challenge_number(challenge_number)
     figure.draw(sessions)
-    figure.save_eps('dendrogram')
-    figure.save_png('dendrogram')
+    figure.save_eps('dendrogram' + str(challenge_number))
+    figure.save_png('dendrogram' + str(challenge_number))
 
 def plot_acceptance_money_figure(sessions):
     figure = AcceptanceMoneyFigure()
@@ -166,6 +176,15 @@ def plot_solution_welfare_figure(sessions):
     figure.draw(sessions)
     figure.save_eps('solution_welfare')
     figure.save_png('solution_welfare')
+
+def plot_money_welfare_cluster_figure(sessions):
+    figure = MoneyWelfareClusterFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('money_welfare_cluster')
+    figure.save_png('money_welfare_cluster')
 
 
 

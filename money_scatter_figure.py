@@ -11,9 +11,9 @@ class MoneyScatterFigure(Figure):
     def draw(self, sessions):
         for session in sessions:
             money = []
-            money.append(session.challenge1.money)
-            money.append(session.challenge2.money)
-            money.append(session.challenge3.money)
+            money.append(session.challenge[0].money)
+            money.append(session.challenge[1].money)
+            money.append(session.challenge[2].money)
             plt.plot([1, 2, 3], money, "-ko", linewidth = 0.2)
 
         self.set_x_label("Challenge")

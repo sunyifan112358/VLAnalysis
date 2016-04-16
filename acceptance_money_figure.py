@@ -17,9 +17,9 @@ class AcceptanceMoneyFigure(Figure):
         c3_money = []
 
         for session in sessions:
-            c1 = session.challenge1
-            c2 = session.challenge2
-            c3 = session.challenge3
+            c1 = session.challenge[0]
+            c2 = session.challenge[1]
+            c3 = session.challenge[2]
             acceptance_rate = [
                 c2.get_recommendation_acceptance_rate(),
                 c3.get_recommendation_acceptance_rate(),

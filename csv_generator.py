@@ -30,32 +30,16 @@ class CsvGenerator(object):
                 '\n')
 
         for session in sessions:
-            c1 = session.challenge1
-            c2 = session.challenge2
-            c3 = session.challenge3
-            csv_file.write(
-                '' + str(c1.money) + ', '
-                '' + str(c1.welfare) + ', '
-                '' + str(c1.dock_utilization) + ', '
-                '' + str(c1.get_real_duration()) + ', '
-                '' + str(c1.accepted_recommendation) + ', '
-                '' + str(c1.total_recommendation) + ', '
-                '' + str(c1.get_oil_cleaning_solution()) + ', '
-                '' + str(c1.num_key_action) + ', '
-                '' + str(c2.money) + ', '
-                '' + str(c2.welfare) + ', '
-                '' + str(c2.dock_utilization) + ', '
-                '' + str(c2.get_real_duration()) + ', '
-                '' + str(c2.accepted_recommendation) + ', '
-                '' + str(c2.total_recommendation) + ', '
-                '' + str(c2.get_oil_cleaning_solution()) + ', '
-                '' + str(c2.num_key_action) + ', '
-                '' + str(c3.money) + ', '
-                '' + str(c3.welfare) + ', ' 
-                '' + str(c3.dock_utilization) + ', '
-                '' + str(c3.get_real_duration()) + ', '
-                '' + str(c3.accepted_recommendation) + ', '
-                '' + str(c3.total_recommendation) + ', '
-                '' + str(c3.get_oil_cleaning_solution()) + ', '
-                '' + str(c3.num_key_action) + ''
-                '\n')
+            for challenge in session.challenge:
+                csv_file.write(
+                    '' + str(challenge.money) + ', '
+                    '' + str(challenge.welfare) + ', '
+                    '' + str(challenge.dock_utilization) + ', '
+                    '' + str(challenge.get_real_duration()) + ', '
+                    '' + str(challenge.accepted_recommendation) + ', '
+                    '' + str(challenge.total_recommendation) + ', '
+                    '' + str(challenge.get_oil_cleaning_solution()) + ', '
+                    '' + str(challenge.num_key_action) + '')
+                if challenge != session.challenge[2]:
+                    csv_file.write(', ')
+            csv_file.write('\n')

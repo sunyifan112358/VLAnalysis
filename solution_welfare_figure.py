@@ -30,9 +30,9 @@ class SolutionWelfareFigure(Figure):
         
     def collect_data(self):
         for session in self.sessions:
-            self.process_challenge(session.challenge1, 0)
-            self.process_challenge(session.challenge2, 1)
-            self.process_challenge(session.challenge3, 2)
+            self.process_challenge(session.challenge[0], 0)
+            self.process_challenge(session.challenge[1], 1)
+            self.process_challenge(session.challenge[2], 2)
 
     def process_challenge(self, challenge, challenge_number):
         if challenge.get_oil_cleaning_solution() == "None":

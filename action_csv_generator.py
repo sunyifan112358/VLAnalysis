@@ -15,9 +15,10 @@ class ActionCsvGenerator(object):
 
         for session in sessions:
             self.session_id += 1
-            self.generate_run(session.challenge1)
-            self.generate_run(session.challenge2)
-            self.generate_run(session.challenge3)
+            for challenge in session.challenge:
+                self.generate_run(challenge)
+                self.generate_run(challenge)
+                self.generate_run(challenge)
             self.run_id = 0
 
         self.session_id = 0

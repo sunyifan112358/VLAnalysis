@@ -11,9 +11,9 @@ class WelfareDistributionFigure(Figure):
     def draw(self, sessions):
         welfare = [[], [], []]
         for session in sessions:
-            welfare[0].append(session.challenge1.welfare)
-            welfare[1].append(session.challenge2.welfare)
-            welfare[2].append(session.challenge3.welfare)
+            welfare[0].append(session.challenge[0].welfare)
+            welfare[1].append(session.challenge[1].welfare)
+            welfare[2].append(session.challenge[2].welfare)
 
         plt.boxplot(welfare, showmeans=True)
 

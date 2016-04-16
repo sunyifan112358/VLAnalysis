@@ -11,9 +11,9 @@ class WelfareScatterFigure(Figure):
     def draw(self, sessions):
         for session in sessions:
             welfare = []
-            welfare.append(session.challenge1.welfare)
-            welfare.append(session.challenge2.welfare)
-            welfare.append(session.challenge3.welfare)
+            welfare.append(session.challenge[0].welfare)
+            welfare.append(session.challenge[1].welfare)
+            welfare.append(session.challenge[2].welfare)
             plt.plot([1, 2, 3], welfare, "-ko", linewidth = 0.2)
 
         self.set_x_label("Challenge")

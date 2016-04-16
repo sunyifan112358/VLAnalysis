@@ -11,9 +11,9 @@ class MoneyDistributionFigure(Figure):
     def draw(self, sessions):
         money = [[], [], []]
         for session in sessions:
-            money[0].append(session.challenge1.money)
-            money[1].append(session.challenge2.money)
-            money[2].append(session.challenge3.money)
+            money[0].append(session.challenge[0].money)
+            money[1].append(session.challenge[1].money)
+            money[2].append(session.challenge[2].money)
 
         plt.boxplot(money, showmeans=True)
 
