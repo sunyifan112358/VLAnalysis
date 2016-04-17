@@ -16,27 +16,30 @@ class MoneyWelfareFigure(Figure):
             money = []
             welfare = []
 
+            color_provider = ColorProvider()
+            for i in range(len(session.challenge)):
+                challenge = session.challenge[i]
+                money.append(challenge.money)
+                welfare.append(challenge.welfare)
+
+                color_list = color_provider.get_color_list(i)
+                cluster_tag_name = '_money_welfare_' + str(i)
+                cluster_tag = session.cluster_tags[cluster_tag_name]
+                color = color_list[(cluster_tag - 1) * 2]
+                plt.plot(welfare[i], money[i], self.get_marker_shape(i),
+                        color = color, markersize = 12)
+               
             line_style = 'k-'
             if not session.give_recommendation():
                 line_style = 'k--'
             plt.plot(welfare, money, line_style, linewidth = 0.2)
         
-            color_provider = ColorProvider()
-            for i in range(len(session.challenge)):
-                challenge = session.challenge[i]
-                money.append(challenge.money - money_avg[i])
-                welfare.append(challenge.welfare - welfare_avg[0])
 
-                color_list = color_provider.get_color_list(i)
-                cluster_tag_name = '_money_welfare_' + str(i)
-                cluster_tag = session.cluster_tags[cluster_tag_name]
-                color = color_list[cluster_tag - 1]
-                plt.plot(welfare[i], money[i], self.get_marker_shape(i),
-                        color = color, markersize = 12)
 
         self.set_x_label("Welfare")
         self.set_y_label("Earnings")
-#plt.xlim((-0.5, 3.5))
+#plt.xlim((-0.1, 3.1))
+#plt.ylim((-0.4e7, 0.7e7))
 
     def get_marker_shape(self, index):
         if index == 0:

@@ -21,8 +21,8 @@ class Session(object):
         return string
 
     def give_recommendation(self):
-        if len(self.challenge) == 1:
-            return "Unknown"
+        if len(self.challenge) <= 1:
+            return "False"
         return self.challenge[1].give_recommendation
 
     def finished_all_challenges(self):

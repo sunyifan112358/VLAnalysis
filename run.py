@@ -1,4 +1,6 @@
 from cleaning_action import CleaningAction
+from priority_action import PriorityAction
+from phase_action import PhaseAction
 
 class Run(object):
     
@@ -51,6 +53,28 @@ class Run(object):
 
     def get_action_per_minute(self):
         return self.num_key_action / self.get_real_duration() * 60
+
+    def get_num_priority_change(self, min_priority = 0, max_priority = 100):
+        count = 0
+        for action in self.actions:
+            if isinstance(action, PriorityAction):
+                if action.priority >= min_priority and \
+                    action.priority <= max_priority:
+                        count += 1        
+        return count
+
+    def get_total_decision_time(self):
+        count = 0
+        decision_start_time = 0
+        for action in self.actions:
+            if isinstance(action, PhaseAction) and action.phase == "Decision":
+                decision_start_time = action.real_time
+            elif decision_start_time != 0 and isinstance(action, PhaseAction) \
+                and action.phase == "Simulation":
+                count += (action.real_time - decision_start_time)
+                print(action.real_time - decision_start_time)
+                decision_start_time = 0
+        return count
 
     def get_recommendation_acceptance_rate(self):
         if self.total_recommendation == 0:

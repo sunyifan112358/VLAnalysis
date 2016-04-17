@@ -39,8 +39,7 @@ class MoneyWelfareClusterFigure(Figure):
             self.data[challenge_id].append([])
 
         data_list = self.data[challenge_id][cluster]
-        data_list.append((challenge.money - self.money_avg[challenge_id], 
-                    challenge.welfare - self.welfare_avg[challenge_id]))
+        data_list.append((challenge.money, challenge.welfare))
 
     def add_connections(self, session):
         if len(session.challenge) > 1:

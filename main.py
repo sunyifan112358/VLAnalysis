@@ -21,6 +21,7 @@ from money_welfare_cluster_figure import MoneyWelfareClusterFigure
 from bg_money_distribution_figure import BgMoneyDistributionFigure
 from bg_welfare_distribution_figure import BgWelfareDistributionFigure
 from bg_accept_rant_figure import BgAcceptanceRateFigure
+from action_type_figure import ActionTypeFigure
 
 
 def main():
@@ -88,6 +89,10 @@ def plot_all_figures(sessions):
     plot_bg_money_distribution_figure(sessions)
     plot_bg_welfare_distribution_figure(sessions)
     plot_bg_acceptance_rate_figure(sessions)
+
+    plot_action_type_figure(sessions, 0)
+    plot_action_type_figure(sessions, 1)
+    plot_action_type_figure(sessions, 2)
 
 def plot_money_welfare_figure(sessions):
     figure = MoneyWelfareFigure()
@@ -236,7 +241,17 @@ def plot_bg_acceptance_rate_figure(sessions):
     figure.save_eps('bg_acceptance_rate')
     figure.save_png('bg_acceptance_rate')
 
-   
+def plot_action_type_figure(sessions, challenge_number):
+    figure = ActionTypeFigure()
+    figure.set_challenge_number(challenge_number)
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('action_type_rate_' + str(challenge_number))
+    figure.save_png('action_type_rate_' + str(challenge_number))
+
+  
 
 
 if __name__ == "__main__":

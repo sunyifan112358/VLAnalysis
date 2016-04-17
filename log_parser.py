@@ -160,10 +160,6 @@ class LogParser(object):
 
         map_name = match.group(4)
         self.run.map_file = map_name
-        if map_name == 'houston_game_0':
-            self.run.is_tutorial = True
-        else:
-            self.session.add_run(self.run)
 
         self.run.give_recommendation = (match.group(5) == 'True')
         self.run.with_justification = (match.group(6) == 'True')
@@ -182,6 +178,13 @@ class LogParser(object):
         self.run.welfare = float(match.group(4))
         self.run.dock_utilization = float(match.group(5))
         self.run.end_real_time = float(match.group(1))
+        
+        if self.run.map_file == 'houston_game_0':
+            self.run.is_tutorial = True
+        else:
+            self.session.add_run(self.run)
+
+
 
         self.run = None
 
