@@ -14,6 +14,9 @@ class DendrogramFigure(Figure):
     def based_on_challenge_number(self, challenge_number):
         self.challenge_number = challenge_number
 
+    def based_on_item(self, item):
+        self.item = item
+
     def draw(self, sessions):
         self.curr_sessions = sessions
         data = self.prepare_data(sessions)
@@ -29,12 +32,26 @@ class DendrogramFigure(Figure):
         self.tag_sessions(cluster)
 
     def tag_sessions(self, cluster):
-        tag_name = 'money_welfare_' + str(self.challenge_number)
+        tag_name = self.get_tag_name()
         count = 0
         for session in self.curr_sessions:
-
             session.cluster_tags[tag_name] = cluster[count]
             count += 1
+
+    def get_tag_name(self):
+        tag_name = ''
+
+        for i in self.item:
+            tag_name += '_'
+            tag_name += i
+
+        for c in self.challenge_number:
+            tag_name += '_'
+            tag_name += str(c)
+
+        return tag_name
+
+
 
     def get_leaf_label(self, id):
         return str(self.curr_sessions[id].id)
@@ -42,10 +59,15 @@ class DendrogramFigure(Figure):
     def prepare_data(self, sessions):
         data = []
         for session in sessions:
-            point = [
-                session.challenge[self.challenge_number].money,
-                session.challenge[self.challenge_number].welfare,
-            ]
+            point = []
+            for i in range(len(session.challenge)):
+                if i in self.challenge_number:
+                    challenge = session.challenge[i]
+                    if 'welfare' in self.item:
+                        point.append(challenge.welfare)
+                    if 'money' in self.item:
+                        point.append(challenge.money)
+
             data.append(point)
 
         return data

@@ -11,7 +11,6 @@ class MoneyWelfareFigure(Figure):
     def draw(self, sessions):
         
         money_avg, welfare_avg = self.get_mean(sessions)
-        print money_avg
 
         for session in sessions:
             money = []
@@ -31,15 +30,15 @@ class MoneyWelfareFigure(Figure):
             plt.plot(welfare, money, line_style, linewidth = 0.2)
 
             color = ColorProvider.r[
-                (session.cluster_tags['money_welfare_0'] -1)]
+                (session.cluster_tags['_money_welfare_0'] -1)]
             plt.plot(welfare[0], money[0], 'D', color = color, markersize = 12)
 
             color = ColorProvider.g[
-                (session.cluster_tags['money_welfare_1'] - 1)]
+                (session.cluster_tags['_money_welfare_1'] - 1)]
             plt.plot(welfare[1], money[1], 'o', color = color, markersize = 12)
 
             color = ColorProvider.b[
-                (session.cluster_tags['money_welfare_2'] - 1)]
+                (session.cluster_tags['_money_welfare_2'] - 1)]
             plt.plot(welfare[2], money[2], '^', color = color, markersize = 12)
 
         self.set_x_label("Welfare")

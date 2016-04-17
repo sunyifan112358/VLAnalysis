@@ -34,7 +34,7 @@ class MoneyWelfareClusterFigure(Figure):
     def collect_challenge_data(self, session, challenge_id):
         challenge = session.challenge[challenge_id]
         cluster = session.cluster_tags[
-                'money_welfare_' + str(challenge_id)] - 1
+                '_money_welfare_' + str(challenge_id)] - 1
         
         while len(self.data[challenge_id]) - 1 < cluster:
             self.data[challenge_id].append([])
@@ -44,12 +44,12 @@ class MoneyWelfareClusterFigure(Figure):
                     challenge.welfare - self.welfare_avg[challenge_id]))
 
     def add_connections(self, session):
-        self.connection.append((0, session.cluster_tags['money_welfare_0'] - 1, 
-                1, session.cluster_tags['money_welfare_1'] - 1))
-        self.connection.append((1, session.cluster_tags['money_welfare_1'] - 1, 
-                2, session.cluster_tags['money_welfare_2'] - 1))
-        self.connection.append((0, session.cluster_tags['money_welfare_0'] - 1, 
-                2, session.cluster_tags['money_welfare_2'] - 1))
+        self.connection.append((0, session.cluster_tags['_money_welfare_0'] - 1, 
+                1, session.cluster_tags['_money_welfare_1'] - 1))
+        self.connection.append((1, session.cluster_tags['_money_welfare_1'] - 1, 
+                2, session.cluster_tags['_money_welfare_2'] - 1))
+        self.connection.append((0, session.cluster_tags['_money_welfare_0'] - 1, 
+                2, session.cluster_tags['_money_welfare_2'] - 1))
 
     def process_data(self):
         self.cluster_centers = []

@@ -6,5 +6,17 @@ class ColorProvider:
     b = ['#1860f2', '#3071f2', '#4981f2', '#6191f2', '#79a1f2',
             '#91b2f2', '#aac2f2', '#c2d2f2', '#dae2f2']
 
+    def __getitem__(self, index):
+        colors = [
+            '#f21840', 
+            '#46d615',
+            '#1860f2',
+            '#42e350',
+            '#ec6c19',
+            '#2ff4b6',
+        ]
+
+        return colors[index]
+
 
     

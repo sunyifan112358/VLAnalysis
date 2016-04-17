@@ -17,6 +17,9 @@ class AcceptanceMoneyFigure(Figure):
         c3_money = []
 
         for session in sessions:
+            if not session.give_recommendation():
+                continue
+
             c1 = session.challenge[0]
             c2 = session.challenge[1]
             c3 = session.challenge[2]
@@ -36,7 +39,7 @@ class AcceptanceMoneyFigure(Figure):
 
             plt.plot(acceptance_rate, money, 'k-', linewidth = 0.2)
             plt.plot(acceptance_rate[0], money[0], 'go')
-            plt.plot(acceptance_rate[1], money[1], 'bx')
+            plt.plot(acceptance_rate[1], money[1], 'b^')
             
 
         slope, intercept, r_value, p_value, std_err = \

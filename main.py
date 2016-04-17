@@ -62,9 +62,11 @@ def output_data_in_csv(sessions):
     action_csv_generator.generate(sessions)
 
 def plot_all_figures(sessions):
-    plot_dendrogram_figure(sessions, 0)
-    plot_dendrogram_figure(sessions, 1)
-    plot_dendrogram_figure(sessions, 2)
+    plot_dendrogram_figure(sessions, ['money', 'welfare'], [0])
+    plot_dendrogram_figure(sessions, ['money', 'welfare'], [1])
+    plot_dendrogram_figure(sessions, ['money', 'welfare'], [2])
+    plot_dendrogram_figure(sessions, ['money'], [0, 1, 2])
+    plot_dendrogram_figure(sessions, ['welfare'], [0, 1, 2])
 
     plot_money_welfare_figure(sessions)
     plot_money_distribution_figure(sessions)
@@ -138,15 +140,16 @@ def plot_real_time_distribution_figure(sessions):
     figure.save_eps('real_time_distribution')
     figure.save_png('real_time_distribution')
 
-def plot_dendrogram_figure(sessions, challenge_number):
+def plot_dendrogram_figure(sessions, items, challenge_number):
     figure = DendrogramFigure()
     figure.set_size(8, 6)
     figure.set_font_size(18)
     figure.initialize()
     figure.based_on_challenge_number(challenge_number)
+    figure.based_on_item(items)
     figure.draw(sessions)
-    figure.save_eps('dendrogram' + str(challenge_number))
-    figure.save_png('dendrogram' + str(challenge_number))
+    figure.save_eps('dendrogram' + figure.get_tag_name())
+    figure.save_png('dendrogram' + figure.get_tag_name())
 
 def plot_acceptance_money_figure(sessions):
     figure = AcceptanceMoneyFigure()
