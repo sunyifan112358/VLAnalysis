@@ -34,7 +34,7 @@ class DendrogramFigure(Figure):
     def tag_sessions(self, cluster):
         tag_name = self.get_tag_name()
         count = 0
-        for session in self.curr_sessions:
+        for session in self.session_to_cluster:
             session.cluster_tags[tag_name] = cluster[count]
             count += 1
 
@@ -58,17 +58,22 @@ class DendrogramFigure(Figure):
 
     def prepare_data(self, sessions):
         data = []
+        self.session_to_cluster = []
         for session in sessions:
             point = []
             for i in range(len(session.challenge)):
                 if i in self.challenge_number:
                     challenge = session.challenge[i]
+                    if challenge == None:
+                        continue
                     if 'welfare' in self.item:
                         point.append(challenge.welfare)
                     if 'money' in self.item:
                         point.append(challenge.money)
-
-            data.append(point)
+            
+            if len(point) == len(self.challenge_number) * len(self.item):
+                data.append(point)
+                self.session_to_cluster.append(session)
 
         return data
 

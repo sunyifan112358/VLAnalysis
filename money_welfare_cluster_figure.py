@@ -25,9 +25,8 @@ class MoneyWelfareClusterFigure(Figure):
             if not session.give_recommendation():
                 continue
 
-            self.collect_challenge_data(session, 0);
-            self.collect_challenge_data(session, 1);
-            self.collect_challenge_data(session, 2);
+            for i in range(len(session.challenge)):
+                self.collect_challenge_data(session, i);
 
             self.add_connections(session)
     
@@ -44,12 +43,15 @@ class MoneyWelfareClusterFigure(Figure):
                     challenge.welfare - self.welfare_avg[challenge_id]))
 
     def add_connections(self, session):
-        self.connection.append((0, session.cluster_tags['_money_welfare_0'] - 1, 
+        if len(session.challenge) > 1:
+            self.connection.append((0, session.cluster_tags['_money_welfare_0'] - 1, 
                 1, session.cluster_tags['_money_welfare_1'] - 1))
-        self.connection.append((1, session.cluster_tags['_money_welfare_1'] - 1, 
-                2, session.cluster_tags['_money_welfare_2'] - 1))
-        self.connection.append((0, session.cluster_tags['_money_welfare_0'] - 1, 
-                2, session.cluster_tags['_money_welfare_2'] - 1))
+
+        if len(session.challenge) > 2:
+            self.connection.append((1, session.cluster_tags['_money_welfare_1'] - 1, 
+                    2, session.cluster_tags['_money_welfare_2'] - 1))
+            self.connection.append((0, session.cluster_tags['_money_welfare_0'] - 1, 
+                    2, session.cluster_tags['_money_welfare_2'] - 1))
 
     def process_data(self):
         self.cluster_centers = []

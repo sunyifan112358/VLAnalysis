@@ -9,19 +9,18 @@ class MoneyDistributionFigure(Figure):
         pass
 
     def draw(self, sessions):
-        money = [[], [], [], [], []]
+        money = [[], [], [], [], [], []]
         for session in sessions:
-            money[0].append(session.challenge[0].money)
             if session.give_recommendation():
-                money[1].append(session.challenge[1].money)
-                money[3].append(session.challenge[2].money)
+                for i in range(len(session.challenge)):
+                    money[i * 2].append(session.challenge[i].money)
             else:
-                money[2].append(session.challenge[1].money)
-                money[4].append(session.challenge[2].money)
-
+                for i in range(len(session.challenge)):
+                    money[i * 2 + 1].append(session.challenge[i].money)
 
         plt.boxplot(money, showmeans=True)
-        plt.xticks(range(1, 6), ['C1', 'C2-Rec', 'C2-NoRec', 'C3-Rec', 'C3-NoRec'])
+        plt.xticks(range(1, 7), ['C1-Rec', 'C1-NoRec', 'C2-Rec', 
+            'C2-NoRec', 'C3-Rec', 'C3-NoRec'])
 
         self.set_x_label("Challenge")
         self.set_y_label("Earnings")

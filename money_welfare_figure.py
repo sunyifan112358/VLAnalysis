@@ -15,35 +15,36 @@ class MoneyWelfareFigure(Figure):
         for session in sessions:
             money = []
             welfare = []
-            
-            money.append(session.challenge[0].money - money_avg[0])
-            money.append(session.challenge[1].money - money_avg[1])
-            money.append(session.challenge[2].money - money_avg[2])
-
-            welfare.append(session.challenge[0].welfare - welfare_avg[0])
-            welfare.append(session.challenge[1].welfare - welfare_avg[1])
-            welfare.append(session.challenge[2].welfare - welfare_avg[2])
 
             line_style = 'k-'
             if not session.give_recommendation():
                 line_style = 'k--'
             plt.plot(welfare, money, line_style, linewidth = 0.2)
+        
+            color_provider = ColorProvider()
+            for i in range(len(session.challenge)):
+                challenge = session.challenge[i]
+                money.append(challenge.money - money_avg[i])
+                welfare.append(challenge.welfare - welfare_avg[0])
 
-            color = ColorProvider.r[
-                (session.cluster_tags['_money_welfare_0'] -1)]
-            plt.plot(welfare[0], money[0], 'D', color = color, markersize = 12)
-
-            color = ColorProvider.g[
-                (session.cluster_tags['_money_welfare_1'] - 1)]
-            plt.plot(welfare[1], money[1], 'o', color = color, markersize = 12)
-
-            color = ColorProvider.b[
-                (session.cluster_tags['_money_welfare_2'] - 1)]
-            plt.plot(welfare[2], money[2], '^', color = color, markersize = 12)
+                color_list = color_provider.get_color_list(i)
+                cluster_tag_name = '_money_welfare_' + str(i)
+                cluster_tag = session.cluster_tags[cluster_tag_name]
+                color = color_list[cluster_tag - 1]
+                plt.plot(welfare[i], money[i], self.get_marker_shape(i),
+                        color = color, markersize = 12)
 
         self.set_x_label("Welfare")
         self.set_y_label("Earnings")
 #plt.xlim((-0.5, 3.5))
+
+    def get_marker_shape(self, index):
+        if index == 0:
+            return 'D'
+        elif index == 1:
+            return 'o'
+        else:
+            return '^'
 
     def get_mean(self, sessions):
         money = [[], [], []]
@@ -54,8 +55,11 @@ class MoneyWelfareFigure(Figure):
 
         for session in sessions:
             for i in range(len(session.challenge)):
-                money[i].append(session.challenge[i].money)
-                welfare[i].append(session.challenge[i].welfare)
+                challenge = session.challenge[i]
+                if challenge == None:
+                    continue
+                money[i].append(challenge.money)
+                welfare[i].append(challenge.welfare)
 
         for i in range(len(money)):
             money_avg[i] = sum(money[i])/len(money[i])

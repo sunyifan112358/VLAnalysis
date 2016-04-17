@@ -4,7 +4,7 @@ import numpy as np
 
 from figure import Figure
 
-class AcceptanceMoneyFigure(Figure):
+class AcceptanceWelfareFigure(Figure):
     
     def __init__(self):
         pass
@@ -12,13 +12,14 @@ class AcceptanceMoneyFigure(Figure):
     def draw(self, sessions):
         
         c2_acceptance = []
-        c2_money = []
+        c2_welfare = []
         c3_acceptance = []
-        c3_money = []
+        c3_welfare = []
 
         for session in sessions:
             if not session.finished_all_challenges():
                 continue
+
 
             c1 = session.challenge[0]
             c2 = session.challenge[1]
@@ -27,29 +28,29 @@ class AcceptanceMoneyFigure(Figure):
                 c2.get_recommendation_acceptance_rate(),
                 c3.get_recommendation_acceptance_rate(),
             ]
-            money = [
-                c2.money, c3.money
+            welfare = [
+                c2.welfare, c3.welfare
             ]
 
             c2_acceptance.append(c2.get_recommendation_acceptance_rate())
-            c2_money.append(c2.money)
+            c2_welfare.append(c2.welfare)
             c3_acceptance.append(c3.get_recommendation_acceptance_rate())
-            c3_money.append(c3.money)
+            c3_welfare.append(c3.welfare)
 
 
-            plt.plot(acceptance_rate, money, 'k-', linewidth = 0.2)
-            plt.plot(acceptance_rate[0], money[0], 'go')
-            plt.plot(acceptance_rate[1], money[1], 'b^')
+            plt.plot(acceptance_rate, welfare, 'k-', linewidth = 0.2)
+            plt.plot(acceptance_rate[0], welfare[0], 'go')
+            plt.plot(acceptance_rate[1], welfare[1], 'b^')
             
 
         slope, intercept, r_value, p_value, std_err = \
-                linregress(c2_acceptance, c2_money)
+                linregress(c2_acceptance, c2_welfare)
         X = np.array(c2_acceptance)
         plt.plot(X, slope * X + intercept, 'g', 
                 linewidth = 0.2)
 
         slope, intercept, r_value, p_value, std_err = \
-                linregress(c3_acceptance, c3_money)
+                linregress(c3_acceptance, c3_welfare)
         X = np.array(c3_acceptance)
         plt.plot(X, slope * X + intercept, 'b', 
                 linewidth = 0.2)
@@ -57,6 +58,6 @@ class AcceptanceMoneyFigure(Figure):
 
 
         self.set_x_label("Acceptance Rate")
-        self.set_y_label("Earnings")
+        self.set_y_label("Welfare")
          
-            
+ 

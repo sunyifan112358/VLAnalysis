@@ -11,6 +11,9 @@ class WelfareScatterFigure(Figure):
 
     def draw(self, sessions):
         for session in sessions:
+            if not session.finished_all_challenges():
+                continue
+
             welfare = []
             welfare.append(session.challenge[0].welfare)
             welfare.append(session.challenge[1].welfare)

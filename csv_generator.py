@@ -35,16 +35,31 @@ class CsvGenerator(object):
             csv_file.write(
                 '' + str(session.id) + ', '
                 '' + str(session.bg_tag) + ', ')
+            count = 0
             for challenge in session.challenge:
-                csv_file.write(
-                    '' + str(challenge.money) + ', '
-                    '' + str(challenge.welfare) + ', '
-                    '' + str(challenge.dock_utilization) + ', '
-                    '' + str(challenge.get_real_duration()) + ', '
-                    '' + str(challenge.accepted_recommendation) + ', '
-                    '' + str(challenge.total_recommendation) + ', '
-                    '' + str(challenge.get_oil_cleaning_solution()) + ', '
-                    '' + str(challenge.num_key_action) + '')
-                if challenge != session.challenge[2]:
+                count += 1
+                if challenge != None:
+                    csv_file.write(
+                        '' + str(challenge.money) + ', '
+                        '' + str(challenge.welfare) + ', '
+                        '' + str(challenge.dock_utilization) + ', '
+                        '' + str(challenge.get_real_duration()) + ', '
+                        '' + str(challenge.accepted_recommendation) + ', '
+                        '' + str(challenge.total_recommendation) + ', '
+                        '' + str(challenge.get_oil_cleaning_solution()) + ', '
+                        '' + str(challenge.num_key_action) + '')
+                else:
+                    csv_file.write(
+                        '' + str(None) + ', '
+                        '' + str(None) + ', '
+                        '' + str(None) + ', '
+                        '' + str(None)+ ', '
+                        '' + str(None) + ', '
+                        '' + str(None) + ', '
+                        '' + str(None)+ ', '
+                        '' + str(None) + '')
+
+
+                if count != 3:
                     csv_file.write(', ')
             csv_file.write('\n')

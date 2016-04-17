@@ -33,4 +33,4 @@ class BgAcceptanceRateFigure(Figure):
             rotation = 60)
 
         self.set_x_label("Challenge")
-        self.set_y_label("Welfare")
+        self.set_y_label("Acceptance Rate")

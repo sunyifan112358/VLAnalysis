@@ -11,6 +11,9 @@ class MoneyScatterFigure(Figure):
 
     def draw(self, sessions):
         for session in sessions:
+            if not session.finished_all_challenges():
+                continue
+
             money = []
             money.append(session.challenge[0].money)
             money.append(session.challenge[1].money)

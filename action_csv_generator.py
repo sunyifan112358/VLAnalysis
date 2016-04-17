@@ -16,8 +16,8 @@ class ActionCsvGenerator(object):
         for session in sessions:
             self.session_id = session.id
             for challenge in session.challenge:
-                self.generate_run(challenge)
-                self.generate_run(challenge)
+                if challenge == None:
+                    continue
                 self.generate_run(challenge)
             self.run_id = 0
 

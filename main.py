@@ -13,6 +13,7 @@ from welfare_scatter_figure import WelfareScatterFigure
 from real_time_distribution_figure import RealTimeDistributionFigure
 from dendrogram_figure import DendrogramFigure
 from acceptance_money_figure import AcceptanceMoneyFigure
+from acceptance_welfare_figure import AcceptanceWelfareFigure
 from key_stroke_decision_figure import KeyStrokeDecisionFigure
 from solution_money_figure import SolutionMoneyFigure
 from solution_welfare_figure import SolutionWelfareFigure
@@ -76,7 +77,9 @@ def plot_all_figures(sessions):
     plot_real_time_distribution_figure(sessions)
 
     plot_acceptance_money_figure(sessions)
-    plot_key_stroke_decision_figure(sessions)
+    plot_acceptance_welfare_figure(sessions)
+
+    # plot_key_stroke_decision_figure(sessions)
     plot_solution_money_figure(sessions)
     plot_solution_welfare_figure(sessions)
 
@@ -159,6 +162,15 @@ def plot_acceptance_money_figure(sessions):
     figure.draw(sessions)
     figure.save_eps('acceptance_money')
     figure.save_png('acceptance_money')
+
+def plot_acceptance_welfare_figure(sessions):
+    figure = AcceptanceWelfareFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('acceptance_welfare')
+    figure.save_png('acceptance_welfare')
 
 def plot_key_stroke_decision_figure(sessions):
     figure = KeyStrokeDecisionFigure()

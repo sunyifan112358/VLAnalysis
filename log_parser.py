@@ -162,12 +162,8 @@ class LogParser(object):
         self.run.map_file = map_name
         if map_name == 'houston_game_0':
             self.run.is_tutorial = True
-        elif map_name == 'houston_game_1':
-            self.session.challenge[0] = self.run
-        elif map_name == 'houston_game_2':
-            self.session.challenge[1] = self.run
-        elif map_name == 'houston_game_3':
-            self.session.challenge[2] = self.run
+        else:
+            self.session.add_run(self.run)
 
         self.run.give_recommendation = (match.group(5) == 'True')
         self.run.with_justification = (match.group(6) == 'True')

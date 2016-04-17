@@ -13,9 +13,11 @@ class KeyStrokeDecisionFigure(Figure):
     def draw(self, sessions):
 
         for session in sessions:
-            c1_data = self.process_challenge(session.challenge[0])
-            c2_data = self.process_challenge(session.challenge[1])
-            c3_data = self.process_challenge(session.challenge[2])
+            data = [[], [], []]
+
+            for i in range(len(session.challenge)):
+                challenge = session.challenge[i]
+                data[i] = self.process_challenge(challenge)
 
             c1_step = 1.0 / (len(c1_data))
             c2_step = 1.0 / (len(c2_data))

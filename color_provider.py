@@ -16,7 +16,15 @@ class ColorProvider:
             '#2ff4b6',
         ]
 
-        return colors[index]
+        return colors[index % len(colors)]
+
+    def get_color_list(self, index):
+        if index % 3 == 0:
+            return ColorProvider.r
+        elif index % 3 == 1:
+            return ColorProvider.g
+        else:
+            return ColorProvider.b
 
 
     

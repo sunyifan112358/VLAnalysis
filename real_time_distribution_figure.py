@@ -11,9 +11,8 @@ class RealTimeDistributionFigure(Figure):
     def draw(self, sessions):
         real_time = [[], [], []]
         for session in sessions:
-            real_time[0].append(session.challenge[0].get_real_duration())
-            real_time[1].append(session.challenge[1].get_real_duration())
-            real_time[2].append(session.challenge[2].get_real_duration())
+            for i in range(len(session.challenge)):
+                real_time[i].append(session.challenge[i].get_real_duration())
 
         plt.boxplot(real_time, showmeans=True)
 
