@@ -130,7 +130,7 @@ class LogParser(object):
 
     def create_session(self, match):
         self.session = Session()
-        self.session.name = self.file_name
+        self.session.name = self.file_name[0:-5]
         self.session.bg_tag = match.group(2)
 
         self.session.id = self.next_session_id

@@ -72,7 +72,6 @@ class Run(object):
             elif decision_start_time != 0 and isinstance(action, PhaseAction) \
                 and action.phase == "Simulation":
                 count += (action.real_time - decision_start_time)
-                print(action.real_time - decision_start_time)
                 decision_start_time = 0
         return count
 
@@ -90,3 +89,13 @@ class Run(object):
                 solution = action.solution
         return solution
 
+
+    def get_pri_money(self, challenge_id, global_stat):
+        money_avg, welfare_avg = global_stat.get_mean(challenge_id,
+                self.get_oil_cleaning_solution())
+        return self.money - money_avg
+
+    def get_pri_welfare(self, challenge_id, global_stat):
+        money_avg, welfare_avg = global_stat.get_mean(challenge_id,
+                self.get_oil_cleaning_solution())
+        return self.welfare - welfare_avg

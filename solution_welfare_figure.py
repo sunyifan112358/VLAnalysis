@@ -17,7 +17,7 @@ class SolutionWelfareFigure(Figure):
 
         plt.boxplot(self.data, showmeans = True)
 
-        plt.xticks(range(1, 12), 
+        plt.xticks(range(1, 13), 
                 ['C1-None', 'C1-Burning', 'C1-Dispersant', 'C1-Skimmers',
                 'C2-None', 'C2-Burning', 'C2-Dispersant', 'C2-Skimmers',
                 'C3-None', 'C3-Burning', 'C3-Dispersant', 'C3-Skimmers'],

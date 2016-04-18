@@ -32,5 +32,8 @@ class Figure(object):
     def save_png(self, file_name):
         plt.savefig(file_name + ".png", format='png')
 
+    def close(self):
+        plt.close(self.fig)
+
 
 

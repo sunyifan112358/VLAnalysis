@@ -3,13 +3,14 @@ class CsvGenerator(object):
     def __init__(self):
         pass
 
-    def generate(self, sessions):
+    def generate(self, sessions, global_stat):
         csv_file = open("data.csv", "w")
         csv_file.write(
                 'file, '
                 'session_id, '
                 'tag,'
                 'c1.money, c1.welfare, '
+                'c1.pri_money, c1.pri_welfare, '
                 'c1.dock_utilization, '
                 'c1.real_time, '
                 'c1.decision_time, '
@@ -22,6 +23,7 @@ class CsvGenerator(object):
                 'c1.solution, '
                 'c1.num_key_action, '
                 'c2.money, c2.welfare, '
+                'c2.pri_money, c2.pri_welfare, '
                 'c2.dock_utilization, '
                 'c2.real_time, '
                 'c2.decision_time, '
@@ -34,6 +36,7 @@ class CsvGenerator(object):
                 'c2.solution, '
                 'c2.num_key_action, '
                 'c3.money, c3.welfare, '
+                'c3.pri_money, c3.pri_welfare, '
                 'c3.dock_utilization, '
                 'c3.real_time, '
                 'c3.decision_time, '
@@ -58,6 +61,8 @@ class CsvGenerator(object):
                 csv_file.write(
                     '' + str(challenge.money) + ', '
                     '' + str(challenge.welfare) + ', '
+                    '' + str(challenge.get_pri_money(count - 1, global_stat)) + ', '
+                    '' + str(challenge.get_pri_welfare(count - 1, global_stat)) + ', '
                     '' + str(challenge.dock_utilization) + ', '
                     '' + str(challenge.get_real_duration()) + ', '
                     '' + str(challenge.get_total_decision_time()) + ', '

@@ -11,9 +11,9 @@ class ColorProvider:
             '#f21840', 
             '#46d615',
             '#1860f2',
-            '#42e350',
             '#ec6c19',
             '#2ff4b6',
+            '#859eef'
         ]
 
         return colors[index % len(colors)]

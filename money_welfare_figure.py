@@ -8,10 +8,8 @@ class MoneyWelfareFigure(Figure):
     def __init__(self):
         pass
         
-    def draw(self, sessions):
+    def draw(self, sessions, global_stat):
         
-        money_avg, welfare_avg = self.get_mean(sessions)
-
         for session in sessions:
             money = []
             welfare = []
@@ -19,6 +17,10 @@ class MoneyWelfareFigure(Figure):
             color_provider = ColorProvider()
             for i in range(len(session.challenge)):
                 challenge = session.challenge[i]
+    
+                money_avg, welfare_avg = global_stat.get_mean(i, 
+                        challenge.get_oil_cleaning_solution())
+
                 money.append(challenge.money)
                 welfare.append(challenge.welfare)
 
@@ -48,25 +50,3 @@ class MoneyWelfareFigure(Figure):
             return 'o'
         else:
             return '^'
-
-    def get_mean(self, sessions):
-        money = [[], [], []]
-        welfare = [[], [], []]
-
-        money_avg = [0, 0, 0]
-        welfare_avg = [0, 0, 0]
-
-        for session in sessions:
-            for i in range(len(session.challenge)):
-                challenge = session.challenge[i]
-                if challenge == None:
-                    continue
-                money[i].append(challenge.money)
-                welfare[i].append(challenge.welfare)
-
-        for i in range(len(money)):
-            money_avg[i] = sum(money[i])/len(money[i])
-            welfare_avg[i] = sum(welfare[i])/len(welfare[i])
-
-        return money_avg, welfare_avg
-

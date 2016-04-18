@@ -46,17 +46,27 @@ class ActionTypeFigure(Figure):
         return win_sessions, lose_sessions
 
     def rank_data(self, win_sessions, lose_sessions):
+        '''
         win_sessions.sort(key = lambda x: x.challenge[
                 self.challenge_number].money, reverse=True)
         lose_sessions.sort(key = lambda x: x.challenge[
                 self.challenge_number].money, reverse=True)
         return win_sessions + lose_sessions
         '''
+        '''
         sessions = win_sessions + lose_sessions
         sessions.sort(key = lambda x: x.challenge[self.challenge_number].money,
                 reverse = True)
         return sessions
         '''
+        sessions = win_sessions + lose_sessions
+        sessions.sort(key = lambda x: 
+                x.challenge[self.challenge_number].money / 6000000 + \
+                x.challenge[self.challenge_number].welfare,
+                reverse = True)
+        return sessions
+
+
 
     def get_action_count(self, sessions):
         action_count = []
@@ -67,15 +77,19 @@ class ActionTypeFigure(Figure):
         return action_count
 
     def get_action_count_for_challenge(self, challenge):
-        action_count = [0, 0, 0]
+        action_count = [0, 0, 0, 0, 0]
         for action in challenge.actions:
             if isinstance(action, PriorityAction):
-                if action.priority <= 3:
+                if action.priority <= 1:
                     action_count[0] += 1
-                elif action.priority <= 8:
+                elif action.priority <= 3:
                     action_count[1] += 1
-                else:
+                elif action.priority <= 8:
                     action_count[2] += 1
+                elif action.priority <= 20:
+                    action_count[3] += 1
+                else:
+                    action_count[4] += 1
         return action_count
 
     def plot_figure(self, sessions, action_count, win_count):
@@ -94,6 +108,7 @@ class ActionTypeFigure(Figure):
         plt.plot((win_count, win_count), 
                 (0, 200),
                 'k-')
-        plt.xticks(position, [s.name for s in sessions], rotation = 90)
+        plt.xticks([x + 0.5 for x in position], 
+                [s.name for s in sessions], rotation = 90)
 
 
