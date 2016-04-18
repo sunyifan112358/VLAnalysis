@@ -17,18 +17,29 @@ class DecisionMatrixFigure(Figure):
 
         data = np.array(decision_matrix)
 
+        '''
         for p in np.nditer(data, op_flags=['readwrite']):
             if p != 0:
                 p[...] = 1.0 / p
+        '''
 
         color_map = matplotlib.colors.LinearSegmentedColormap.from_list(
-                'custom', ['r', 'b'], N = 256)
+                'custom', ['b', 'r'], N = 256)
         color_map.set_under(color = 'w')
        
                 
-        plt.pcolor(data, cmap = color_map, vmin = 1, vmax = 20)
+        plt.pcolor(data, cmap = color_map, vmin = 0.001, vmax = 1)
         cb = plt.colorbar()
         cb.ax.invert_yaxis()
+
+        self.ax.invert_yaxis()
+        self.ax.xaxis.grid(which='minor')
+        self.ax.yaxis.grid(which='minor')
+
+        plt.xticks(np.arange(19) + 0.5, np.arange(19) + 1)
+        self.ax.set_xticks(np.arange(20), minor=True)
+        plt.yticks(np.arange(30) + 0.5, np.arange(30) + 1)
+        self.ax.set_yticks(np.arange(30), minor=True)
 
         self.set_x_label("Decision Phase")
         self.set_y_label("Ship ID")

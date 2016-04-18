@@ -82,7 +82,11 @@ def plot_all_figures(sessions, global_stat):
     plot_dendrogram_figure(sessions, global_stat, ['action_matrix'], [0], 8,
             False)
 
-    plot_money_welfare_figure(sessions, global_stat)
+    plot_money_welfare_figure(sessions, global_stat, [0])
+    plot_money_welfare_figure(sessions, global_stat, [1])
+    plot_money_welfare_figure(sessions, global_stat, [2])
+    plot_money_welfare_figure(sessions, global_stat, [0, 1, 2])
+
     plot_money_distribution_figure(sessions)
     plot_money_scatter_figure(sessions)
     plot_welfare_distribution_figure(sessions)
@@ -109,14 +113,15 @@ def plot_all_figures(sessions, global_stat):
     for i in range(len(sessions)):
         plot_decision_matrix(sessions, i, 0)
 
-def plot_money_welfare_figure(sessions, global_stat):
+def plot_money_welfare_figure(sessions, global_stat, challenge_number):
     figure = MoneyWelfareFigure()
     figure.set_size(8, 6)
     figure.set_font_size(18)
+    figure.set_challenge_number(challenge_number)
     figure.initialize()
     figure.draw(sessions, global_stat)
-    figure.save_eps("money_welfare")
-    figure.save_png("money_welfare")
+    figure.save_eps("money_welfare_" + str(challenge_number))
+    figure.save_png("money_welfare_" + str(challenge_number))
     figure.close()
 
 def plot_money_distribution_figure(sessions):
