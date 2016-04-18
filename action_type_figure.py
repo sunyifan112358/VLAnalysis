@@ -46,18 +46,17 @@ class ActionTypeFigure(Figure):
         return win_sessions, lose_sessions
 
     def rank_data(self, win_sessions, lose_sessions):
-        '''
         win_sessions.sort(key = lambda x: x.challenge[
                 self.challenge_number].money, reverse=True)
         lose_sessions.sort(key = lambda x: x.challenge[
                 self.challenge_number].money, reverse=True)
         return win_sessions + lose_sessions
         '''
-        '''
         sessions = win_sessions + lose_sessions
         sessions.sort(key = lambda x: x.challenge[self.challenge_number].money,
                 reverse = True)
         return sessions
+        '''
         '''
         sessions = win_sessions + lose_sessions
         sessions.sort(key = lambda x: 
@@ -65,6 +64,7 @@ class ActionTypeFigure(Figure):
                 x.challenge[self.challenge_number].welfare,
                 reverse = True)
         return sessions
+        '''
 
 
 
@@ -93,22 +93,28 @@ class ActionTypeFigure(Figure):
         return action_count
 
     def plot_figure(self, sessions, action_count, win_count):
-        position = range(len(sessions))
+        position = np.arange(len(sessions)) + 0.1
         
         color_provider = ColorProvider()  
         bottom = [0] * len(position)
+        labels = ['1', '2-3', '4-8', '9-20', '21+']
+        bars = []
         for i in range(len(action_count[0])):
             data = [x[i] for x in action_count]
-            plt.bar(position, data,
+            bar = plt.bar(position, data,
+                    width = 0.8,
                     bottom = bottom,
                     color = color_provider[i])
+            bars.append(bar)
             bottom = map(add, bottom, data)
+
+        plt.legend(bars, labels)
 
         
         plt.plot((win_count, win_count), 
                 (0, 200),
                 'k-')
-        plt.xticks([x + 0.5 for x in position], 
-                [s.name for s in sessions], rotation = 90)
+        plt.xticks(position + 0.4,
+                [str(s.id) for s in sessions], rotation = 90)
 
 

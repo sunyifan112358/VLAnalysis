@@ -36,19 +36,21 @@ class MoneyWelfareFigure(Figure):
                 plt.plot(welfare[-1], money[-1], self.get_marker_shape(i),
                         color = color, markersize = 12)
 
-                plt.annotate(session.name, xy=(welfare[-1], money[-1]))
-               
+                plt.annotate(str(session.id), xy=(welfare[-1] + 0.02, money[-1]))
+
             line_style = 'k-'
             if not session.give_recommendation():
                 line_style = 'k--'
             plt.plot(welfare, money, line_style, linewidth = 0.2)
+
+        self.plot_target();
         
 
 
         self.set_x_label("Welfare")
         self.set_y_label("Earnings")
-#plt.xlim((-0.1, 3.1))
-#plt.ylim((-0.4e7, 0.7e7))
+        plt.xlim((-0.1, 4))
+        plt.ylim((-0.4e7, 0.7e7))
 
     def get_marker_shape(self, index):
         if index == 0:
@@ -57,3 +59,22 @@ class MoneyWelfareFigure(Figure):
             return 'o'
         else:
             return '^'
+
+    def plot_target(self):
+        if len(self.challenge_number) != 1:
+            return
+
+        money = 0
+        welfare = 0
+        if 0 in self.challenge_number:
+            money = -640000
+            welfare = 0.5
+        elif 1 in self.challenge_number:
+            money = 2600000
+            welfare = 0.5
+        elif 2 in self.challenge_number:
+            money = 2500000
+            welfare = 1.5
+
+        plt.axvline(welfare)
+        plt.axhline(money)

@@ -115,7 +115,7 @@ def plot_all_figures(sessions, global_stat):
 
 def plot_money_welfare_figure(sessions, global_stat, challenge_number):
     figure = MoneyWelfareFigure()
-    figure.set_size(8, 6)
+    figure.set_size(8, 4)
     figure.set_font_size(18)
     figure.set_challenge_number(challenge_number)
     figure.initialize()
@@ -224,7 +224,7 @@ def plot_key_stroke_decision_figure(sessions):
 
 def plot_solution_money_figure(sessions):
     figure = SolutionMoneyFigure()
-    figure.set_size(8, 6)
+    figure.set_size(8, 4)
     figure.set_font_size(18)
     figure.initialize()
     figure.draw(sessions)
@@ -235,7 +235,7 @@ def plot_solution_money_figure(sessions):
 
 def plot_solution_welfare_figure(sessions):
     figure = SolutionWelfareFigure()
-    figure.set_size(8, 6)
+    figure.set_size(8, 4)
     figure.set_font_size(18)
     figure.initialize()
     figure.draw(sessions)
@@ -286,7 +286,7 @@ def plot_bg_acceptance_rate_figure(sessions):
 def plot_action_type_figure(sessions, challenge_number):
     figure = ActionTypeFigure()
     figure.set_challenge_number(challenge_number)
-    figure.set_size(8, 6)
+    figure.set_size(8, 5)
     figure.set_font_size(18)
     figure.initialize()
     figure.draw(sessions)
@@ -305,7 +305,7 @@ def plot_decision_matrix(sessions, session_id, challenge_id):
     figure.set_size(8, 6)
     figure.set_font_size(18)
     figure.initialize()
-    figure.draw(challenge)
+    figure.draw(session, challenge)
     figure.save_eps('decision_matrix_' + str(session.name) + '_' +
             str(challenge_id))
     figure.save_png('decision_matrix_' + str(session.name) + '_' +

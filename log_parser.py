@@ -65,7 +65,10 @@ class LogParser(object):
             '"client_time":"([0-9\.E\-]+)", '
             '"details":{"current_time":'
             '"([0-9]+/[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+(?: [AP]M)?)", '
-            '"phase":"(Decision|Simulation)"}}}')
+            '"phase":"(Decision|Simulation)"'
+            '(, "money":"([0-9\.E\-]+)", '
+            '"welfare":"([0-9\.E\-]+)")?'
+            '}}}')
 
         self.priority_action_re = re.compile(
             '{"type":"action", "data":{"run_id":"[0-9a-fA-F\-]+", '
@@ -244,6 +247,10 @@ class LogParser(object):
         action.real_time = float(match.group(1))
         action.virtual_time = self.parse_time(match.group(2))
         action.phase = match.group(3)
+
+        if match.group(5):
+            action.money = float(match.group(5))
+            action.welfare = float(match.group(6))
         
         self.run.add_action(action)
 
