@@ -66,8 +66,8 @@ class DendrogramFigure(Figure):
 
 
     def get_leaf_label(self, id):
-#return str(self.curr_sessions[id].id)
-        return self.session_to_cluster[id].name
+        return str(self.curr_sessions[id].id)
+        #return self.session_to_cluster[id].name
 
     def get_leaf_color(self, group_id):
         color_provider = ColorProvider()

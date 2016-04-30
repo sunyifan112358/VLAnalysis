@@ -36,7 +36,7 @@ class MoneyWelfareFigure(Figure):
                 plt.plot(welfare[-1], money[-1], self.get_marker_shape(i),
                         color = color, markersize = 12)
 
-                plt.annotate(str(session.id), xy=(welfare[-1] + 0.02, money[-1]))
+                plt.annotate(str(session.name), xy=(welfare[-1] + 0.02, money[-1]))
 
             line_style = 'k-'
             if not session.give_recommendation():

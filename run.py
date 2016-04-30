@@ -99,3 +99,5 @@ class Run(object):
         money_avg, welfare_avg = global_stat.get_mean(challenge_id,
                 self.get_oil_cleaning_solution())
         return self.welfare - welfare_avg
+
+       

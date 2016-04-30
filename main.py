@@ -24,23 +24,20 @@ from bg_welfare_distribution_figure import BgWelfareDistributionFigure
 from bg_accept_rant_figure import BgAcceptanceRateFigure
 from action_type_figure import ActionTypeFigure
 from decision_matrix_figure import DecisionMatrixFigure
+from decision_phase_acceptance_figure import DecisionPhaseAcceptanceFigure
+from solution_scatter_figure import SolutionScatterFigure
 
 
 def main():
     files = get_all_files()
     sessions = parse_all_sessions(files)
     
-    for session in sessions:
-        print(session)
-
     global_stat = GlobalStat()
     global_stat.calculate(sessions)
 
     output_data_in_csv(sessions, global_stat)
     plot_all_figures(sessions, global_stat)
 
-    for session in sessions:
-        print(session)
 
 def get_all_files():
     all_files = os.listdir("raw_data")
@@ -76,7 +73,7 @@ def plot_all_figures(sessions, global_stat):
     plot_dendrogram_figure(sessions, global_stat, ['money'], [0, 1, 2], 3)
     plot_dendrogram_figure(sessions, global_stat, ['welfare'], [0, 1, 2], 3)
     plot_dendrogram_figure(sessions, global_stat, ['action_type'], [0, 1, 2], 5)
-    plot_dendrogram_figure(sessions, global_stat, ['action_type'], [0], 5)
+    plot_dendrogram_figure(sessions, global_stat, ['action_type'], [0], 4)
     plot_dendrogram_figure(sessions, global_stat, ['action_type'], [1], 5)
     plot_dendrogram_figure(sessions, global_stat, ['action_type'], [2], 5)
     plot_dendrogram_figure(sessions, global_stat, ['action_matrix'], [0], 8,
@@ -93,10 +90,12 @@ def plot_all_figures(sessions, global_stat):
     plot_welfare_scatter_figure(sessions)
     plot_real_time_distribution_figure(sessions)
 
-    plot_acceptance_money_figure(sessions)
-    plot_acceptance_welfare_figure(sessions)
+    plot_acceptance_money_figure(sessions, True)
+    plot_acceptance_money_figure(sessions, False)
+    plot_acceptance_welfare_figure(sessions, True)
+    plot_acceptance_welfare_figure(sessions, False)
 
-    # plot_key_stroke_decision_figure(sessions)
+    plot_key_stroke_decision_figure(sessions)
     plot_solution_money_figure(sessions)
     plot_solution_welfare_figure(sessions)
 
@@ -110,12 +109,17 @@ def plot_all_figures(sessions, global_stat):
     plot_action_type_figure(sessions, 1)
     plot_action_type_figure(sessions, 2)
 
+    plot_decision_phase_acceptance_figure(sessions)
+    plot_solution_scatter_figure(sessions)
+
     for i in range(len(sessions)):
         plot_decision_matrix(sessions, i, 0)
 
+
+
 def plot_money_welfare_figure(sessions, global_stat, challenge_number):
     figure = MoneyWelfareFigure()
-    figure.set_size(8, 4)
+    figure.set_size(12, 12)
     figure.set_font_size(18)
     figure.set_challenge_number(challenge_number)
     figure.initialize()
@@ -177,7 +181,7 @@ def plot_real_time_distribution_figure(sessions):
 def plot_dendrogram_figure(sessions, global_stat, 
         items, challenge_number, threshold, enable_whiten = True):
     figure = DendrogramFigure()
-    figure.set_size(8, 6)
+    figure.set_size(8, 5)
     figure.set_font_size(18)
     figure.initialize()
     figure.based_on_challenge_number(challenge_number)
@@ -192,24 +196,41 @@ def plot_dendrogram_figure(sessions, global_stat,
     figure.save_png('dendrogram' + figure.get_tag_name())
     figure.close()
 
-def plot_acceptance_money_figure(sessions):
+def plot_acceptance_money_figure(sessions, win):
     figure = AcceptanceMoneyFigure()
     figure.set_size(8, 6)
     figure.set_font_size(18)
+    if win:
+        figure.SkipChallenge1Lose()
+    else:
+        figure.SkipChallenge1Win()
     figure.initialize()
     figure.draw(sessions)
-    figure.save_eps('acceptance_money')
-    figure.save_png('acceptance_money')
+
+    file_name = "acceptance_money_c1_win"
+    if not win:
+      file_name = "acceptance_money_c1_lose"
+    figure.save_eps(file_name)
+    figure.save_png(file_name)
     figure.close()
 
-def plot_acceptance_welfare_figure(sessions):
-    figure = AcceptanceWelfareFigure()
+def plot_acceptance_welfare_figure(sessions, win):
+    figure = AcceptanceMoneyFigure()
     figure.set_size(8, 6)
     figure.set_font_size(18)
+    figure.UseWelfare()
+    if win:
+        figure.SkipChallenge1Lose()
+    else:
+        figure.SkipChallenge1Win()
     figure.initialize()
     figure.draw(sessions)
-    figure.save_eps('acceptance_welfare')
-    figure.save_png('acceptance_welfare')
+
+    file_name = "acceptance_welfare_c1_win"
+    if not win:
+      file_name = "acceptance_welfare_c1_lose"
+    figure.save_eps(file_name)
+    figure.save_png(file_name)
     figure.close()
 
 def plot_key_stroke_decision_figure(sessions):
@@ -302,7 +323,7 @@ def plot_decision_matrix(sessions, session_id, challenge_id):
     challenge = session.challenge[challenge_id]
 
     figure = DecisionMatrixFigure()
-    figure.set_size(8, 6)
+    figure.set_size(8, 5)
     figure.set_font_size(18)
     figure.initialize()
     figure.draw(session, challenge)
@@ -313,6 +334,28 @@ def plot_decision_matrix(sessions, session_id, challenge_id):
     figure.close()
 
  
+def plot_decision_phase_acceptance_figure(sessions):
+    figure = DecisionPhaseAcceptanceFigure()
+    figure.set_size(8, 6)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('decision_phase_acceptance_figure')
+    figure.save_png('decision_phase_acceptance_figure')
+    figure.close()
+
+
+def plot_solution_scatter_figure(sessions):
+    figure = SolutionScatterFigure()
+    figure.set_size(8, 5)
+    figure.set_font_size(18)
+    figure.initialize()
+    figure.draw(sessions)
+    figure.save_eps('solution_scatter_figure')
+    figure.save_png('solution_scatter_figure')
+    figure.close()
+
+
 
 
 if __name__ == "__main__":

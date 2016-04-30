@@ -31,4 +31,42 @@ class Session(object):
     def add_run(self, run):
         self.challenge.append(run)
 
+    def is_win(self, challenge_number):
+        target_money = 0
+        target_welfare = 0
+
+        if challenge_number == 0:
+            target_money = -640000
+            target_welfare = 0.5
+        elif challenge_number == 1:
+            target_money = 2600000
+            target_welfare = 0.5
+        elif challenge_number == 2:
+            target_money = 2500000
+            target_welfare = 1.5
+
+        challenge = self.challenge[challenge_number]
+        if challenge.money >= target_money and \
+                challenge.welfare >= target_welfare:
+            return True
+        else:
+            return False
+            
+    def lose_reason(self, challenge_number):
+        target_money = 0
+        target_welfare = 0
+
+        if challenge_number == 0:
+            target_money = -640000
+            target_welfare = 0.5
+        elif challenge_number == 1:
+            target_money = 2600000
+            target_welfare = 0.5
+        elif challenge_number == 2:
+            target_money = 2500000
+            target_welfare = 1.5
+
+        challenge = self.challenge[challenge_number]
         
+
+
