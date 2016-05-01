@@ -12,7 +12,7 @@ class ActionTypeFigure(Figure):
         super(ActionTypeFigure, self).__init__()
 
         self.goals = [
-            (-640000, 0.5), 
+            (-640000, 0.5),
             (2600000, 0.5),
             (2500000, 1.5)
         ]
@@ -24,8 +24,11 @@ class ActionTypeFigure(Figure):
         win_sessions, lose_sessions = self.collect_data(sessions)
         ranked_sessions = self.rank_data(win_sessions, lose_sessions)
         action_count = self.get_action_count(ranked_sessions)
-    
+
         self.plot_figure(ranked_sessions, action_count, len(win_sessions))
+
+        self.set_x_label("Player ID")
+        self.set_y_label("Number Actions")
 
 
     def collect_data(self, sessions):
@@ -35,7 +38,7 @@ class ActionTypeFigure(Figure):
         for session in sessions:
             if len(session.challenge) <= self.challenge_number:
                 continue
-            
+
             challenge = session.challenge[self.challenge_number]
             if challenge.money >= self.goals[self.challenge_number][0] and \
                 challenge.welfare >= self.goals[self.challenge_number][1]:
@@ -59,7 +62,7 @@ class ActionTypeFigure(Figure):
         '''
         '''
         sessions = win_sessions + lose_sessions
-        sessions.sort(key = lambda x: 
+        sessions.sort(key = lambda x:
                 x.challenge[self.challenge_number].money / 6000000 + \
                 x.challenge[self.challenge_number].welfare,
                 reverse = True)
@@ -94,8 +97,8 @@ class ActionTypeFigure(Figure):
 
     def plot_figure(self, sessions, action_count, win_count):
         position = np.arange(len(sessions)) + 0.1
-        
-        color_provider = ColorProvider()  
+
+        color_provider = ColorProvider()
         bottom = [0] * len(position)
         labels = ['1', '2-3', '4-8', '9-20', '21+']
         bars = []
@@ -110,11 +113,9 @@ class ActionTypeFigure(Figure):
 
         plt.legend(bars, labels)
 
-        
-        plt.plot((win_count, win_count), 
+
+        plt.plot((win_count, win_count),
                 (0, 200),
                 'k-')
         plt.xticks(position + 0.4,
                 [str(s.id) for s in sessions], rotation = 90)
-
-

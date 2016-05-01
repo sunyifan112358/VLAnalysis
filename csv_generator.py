@@ -21,6 +21,7 @@ class CsvGenerator(object):
                 'c1.priority_change(4-8), '
                 'c1.priority_change(9-99), '
                 'c1.solution, '
+                'c1.win, '
                 'c1.num_key_action, '
                 'c2.money, c2.welfare, '
                 'c2.pri_money, c2.pri_welfare, '
@@ -34,6 +35,7 @@ class CsvGenerator(object):
                 'c2.priority_change(4-8), '
                 'c2.priority_change(9-99), '
                 'c2.solution, '
+                'c2.win, '
                 'c2.num_key_action, '
                 'c3.money, c3.welfare, '
                 'c3.pri_money, c3.pri_welfare, '
@@ -47,6 +49,7 @@ class CsvGenerator(object):
                 'c3.priority_change(4-8), '
                 'c3.priority_change(9-99), '
                 'c3.solution, '
+                'c3.win, '
                 'c3.num_key_action'
                 '\n')
 
@@ -73,6 +76,7 @@ class CsvGenerator(object):
                     '' + str(challenge.get_num_priority_change(4, 8)) + ', '
                     '' + str(challenge.get_num_priority_change(9, 99)) + ', '
                     '' + str(challenge.get_oil_cleaning_solution()) + ', '
+                    '' + str(session.is_win(count - 1)) + ', '
                     '' + str(challenge.num_key_action) + '')
                 if count != 3:
                     csv_file.write(', ')

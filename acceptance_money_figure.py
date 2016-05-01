@@ -6,7 +6,7 @@ from figure import Figure
 from decision_phase_acceptance_figure import DecisionPhaseAcceptanceFigure
 
 class AcceptanceMoneyFigure(Figure):
-    
+
     def __init__(self):
         self.skip_challenge1_win = False
         self.skip_challenge1_lose = False
@@ -22,7 +22,7 @@ class AcceptanceMoneyFigure(Figure):
         self.use_welfare = True
 
     def draw(self, sessions):
-        
+
         c2_acceptance = []
         c2_money = []
         c3_acceptance = []
@@ -40,12 +40,12 @@ class AcceptanceMoneyFigure(Figure):
             if self.skip_challenge1_win:
                 if session.is_win(0):
                     continue
-            
+
             if self.skip_challenge1_lose:
                 if not session.is_win(0):
                     continue
 
-            '''
+
             if session.challenge[1].get_oil_cleaning_solution() == "None" \
                 or session.challenge[1].get_oil_cleaning_solution() == "Skimmers":
                 continue
@@ -53,7 +53,7 @@ class AcceptanceMoneyFigure(Figure):
             if session.challenge[2].get_oil_cleaning_solution() == "None" \
                 or session.challenge[2].get_oil_cleaning_solution() == "Skimmers":
                 continue
-            '''
+            
 
             c1 = session.challenge[0]
             c2 = session.challenge[1]
@@ -95,18 +95,18 @@ class AcceptanceMoneyFigure(Figure):
             plt.plot(acceptance_rate, money, 'k-', linewidth = 0.2)
             plt.plot(acceptance_rate[0], money[0], 'go')
             plt.plot(acceptance_rate[1], money[1], 'b^')
-            
+
 
         slope, intercept, r_value, p_value, std_err = \
                 linregress(c2_acceptance, c2_money)
         X = np.array(c2_acceptance)
-        plt.plot(X, slope * X + intercept, 'g', 
+        plt.plot(X, slope * X + intercept, 'g',
                 linewidth = 0.2)
 
         slope, intercept, r_value, p_value, std_err = \
                 linregress(c3_acceptance, c3_money)
         X = np.array(c3_acceptance)
-        plt.plot(X, slope * X + intercept, 'b', 
+        plt.plot(X, slope * X + intercept, 'b',
                 linewidth = 0.2)
 
 
@@ -117,5 +117,3 @@ class AcceptanceMoneyFigure(Figure):
             self.set_y_label("Welfare")
         else:
             self.set_y_label("Earnings")
-         
-            

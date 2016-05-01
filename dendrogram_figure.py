@@ -10,7 +10,7 @@ from color_provider import ColorProvider
 from decision_matrix import DecisionMatrix
 
 class DendrogramFigure(Figure):
-    
+
     def __init__(self):
         self.whiten_enabled = False
 
@@ -36,13 +36,16 @@ class DendrogramFigure(Figure):
         Z = linkage(data, 'ward')
         c, coph_dists = cophenet(Z, pdist(data))
         dendrogram(Z, leaf_label_func = self.get_leaf_label,
-            distance_sort = 'descending', 
+            distance_sort = 'descending',
             orientation = 'right',
             color_threshold = self.threshold)
 
         cluster = fcluster(Z, self.threshold, criterion='distance')
-    
+
         self.tag_sessions(cluster)
+        self.set_y_label("Player ID")
+        self.ax.set_xticks([])
+        self.ax.yaxis.set_label_position("right")
 
     def tag_sessions(self, cluster):
         tag_name = self.get_tag_name()
@@ -93,7 +96,7 @@ class DendrogramFigure(Figure):
                         point.append(challenge.get_num_priority_change(2, 3))
                         point.append(challenge.get_num_priority_change(4, 8))
                         point.append(challenge.get_num_priority_change(9, 20))
-                        point.append(challenge.get_num_priority_change(21, 
+                        point.append(challenge.get_num_priority_change(21,
                                     sys.maxint))
                     if 'action_matrix' in self.item:
                         point += self.get_decision_matrix_as_list(challenge)
@@ -111,7 +114,7 @@ class DendrogramFigure(Figure):
         return data
 
     def get_decision_matrix_as_list(self, challenge):
-        decision_matrix_extractor = DecisionMatrix() 
+        decision_matrix_extractor = DecisionMatrix()
         decision_matrix = decision_matrix_extractor.extract_decision_matrix(
                 challenge)
 

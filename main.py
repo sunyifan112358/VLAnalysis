@@ -31,7 +31,7 @@ from solution_scatter_figure import SolutionScatterFigure
 def main():
     files = get_all_files()
     sessions = parse_all_sessions(files)
-    
+
     global_stat = GlobalStat()
     global_stat.calculate(sessions)
 
@@ -47,15 +47,15 @@ def get_all_files():
             files.append(f)
     print(files)
     return files
-    
+
 def parse_all_sessions(files):
     logParser = LogParser();
     sessions = [];
-    
+
     for file in files:
         session = logParser.parse(file)
         sessions.append(session)
-        
+
     return sessions
 
 def output_data_in_csv(sessions, global_stat):
@@ -119,7 +119,7 @@ def plot_all_figures(sessions, global_stat):
 
 def plot_money_welfare_figure(sessions, global_stat, challenge_number):
     figure = MoneyWelfareFigure()
-    figure.set_size(12, 12)
+    figure.set_size(8, 4)
     figure.set_font_size(18)
     figure.set_challenge_number(challenge_number)
     figure.initialize()
@@ -178,7 +178,7 @@ def plot_real_time_distribution_figure(sessions):
     figure.save_png('real_time_distribution')
     figure.close()
 
-def plot_dendrogram_figure(sessions, global_stat, 
+def plot_dendrogram_figure(sessions, global_stat,
         items, challenge_number, threshold, enable_whiten = True):
     figure = DendrogramFigure()
     figure.set_size(8, 5)
@@ -333,7 +333,7 @@ def plot_decision_matrix(sessions, session_id, challenge_id):
             str(challenge_id))
     figure.close()
 
- 
+
 def plot_decision_phase_acceptance_figure(sessions):
     figure = DecisionPhaseAcceptanceFigure()
     figure.set_size(8, 6)

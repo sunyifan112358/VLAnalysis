@@ -20,16 +20,16 @@ class BgMoneyDistributionFigure(Figure):
                 offset = 1
             elif session.bg_tag == "non-STEM":
                 offset = 2
-            
+
             for i in range(len(session.challenge)):
                 money[i * 3 + offset].append(session.challenge[i].money)
 
 
         plt.boxplot(money, showmeans=True)
-        plt.xticks(range(1, 10), 
-            ['C1-CSCE', 'C1-STEM', 'C1-non-STEM', 
-            'C2-CSCE', 'C2-STEM', 'C2-non-STEM', 
-            'C3-CSCE', 'C3-STEM', 'C3-non-STEM'], 
+        plt.xticks(range(1, 10),
+            ['C1-CSCE', 'C1-STEM', 'C1-non-STEM',
+            'C2-CSCE', 'C2-STEM', 'C2-non-STEM',
+            'C3-CSCE', 'C3-STEM', 'C3-non-STEM'],
             rotation = 60)
 
         self.set_x_label("Challenge")
