@@ -34,7 +34,7 @@ class DendrogramFigure(Figure):
             data = whiten(data)
 
         Z = linkage(data, 'ward')
-        c, coph_dists = cophenet(Z, pdist(data))
+        # c, coph_dists = cophenet(Z, pdist(data))
         dendrogram(Z, leaf_label_func = self.get_leaf_label,
             distance_sort = 'descending',
             orientation = 'right',

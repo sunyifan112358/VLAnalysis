@@ -23,11 +23,16 @@ class DecisionMatrixFigure(Figure):
                 p[...] = 1.0 / p
         self.dump_csv(session, priority_value)
 
-        color_map = matplotlib.colors.LinearSegmentedColormap.from_list(
-                'custom', ['r', '#eeeeee'], N = 256)
+        # color_map = matplotlib.colors.LinearSegmentedColormap.from_list(
+        #        'custom', ['r', '#eeeeee'], N = 256)
+        color_map = matplotlib.colors.ListedColormap(
+        ['#cc0000',
+        '#ff9933', '#ff9933',
+        '#ccff33', '#ccff33', '#ccff33', '#ccff33', '#ccff33',
+        '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', '#009933', ], 'custom', 20)
         color_map.set_under(color = 'w')
-       
-                
+
+
         plt.pcolor(priority_value, cmap = color_map, vmin = 1, vmax = 20)
         cb = plt.colorbar(pad = 0.19)
         cb.ax.invert_yaxis()
@@ -55,7 +60,7 @@ class DecisionMatrixFigure(Figure):
         plt.legend(h1+h2, l1+l2, loc="lower right")
 
     def dump_csv(self, session, decision_matrix):
-        np.savetxt(session.name + "_decision.csv", decision_matrix, 
+        np.savetxt(session.name + "_decision.csv", decision_matrix,
                 delimiter=", ")
 
     def extract_money_welfare_data(self, challenge):
@@ -63,7 +68,7 @@ class DecisionMatrixFigure(Figure):
         welfare = []
         in_decision = False
         for action in challenge.actions:
-            if isinstance(action, PhaseAction) and action.phase == "Decision":        
+            if isinstance(action, PhaseAction) and action.phase == "Decision":
                 in_decision = True
                 money.append(action.money)
                 welfare.append(action.welfare)
@@ -76,25 +81,18 @@ class DecisionMatrixFigure(Figure):
 
     def plot_money(self):
         self.ax2 = self.ax.twinx()
-        self.ax2.plot(np.arange(len(self.money)), self.money, 'g-o', 
-                label="Earnings")
+        self.ax2.plot(np.arange(len(self.money)), self.money, '-o',
+                label="Earnings", color="#0000ff")
         self.ax2.set_ylim(-6000000, 3000000)
         self.ax2.set_ylabel("Earnings")
         self.ax2.set_yticks(range(-6000000, 3000000, 1000000))
-        self.ax2.set_yticklabels(['-6M', '-5M', '-4M', '-3M', '-2M', 
+        self.ax2.set_yticklabels(['-6M', '-5M', '-4M', '-3M', '-2M',
             '-1M', '0', '1M', '2M'])
 
     def plot_welfare(self):
         self.ax3 = self.ax.twinx()
-        self.ax3.plot(np.arange(len(self.welfare)), self.welfare, 'c-^', 
+        self.ax3.plot(np.arange(len(self.welfare)), self.welfare, 'c-^',
                 label="Welfare")
         self.ax3.set_ylim(0, 5)
         self.ax3.spines['right'].set_position(('axes', 1.15))
         self.ax3.set_ylabel("Welfare")
-
-
-
-
-
-
-       

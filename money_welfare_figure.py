@@ -39,6 +39,7 @@ class MoneyWelfareFigure(Figure):
                 hatch = ""
                 if not session.give_recommendation():
                     hatch = "//////"
+                    continue
 
                 plt.scatter(welfare[-1], money[-1], 48,
                         marker = marker,
@@ -46,8 +47,8 @@ class MoneyWelfareFigure(Figure):
                         edgecolors = "black",
                         hatch = hatch)
 
-                plt.annotate(str(session.id),
-                    xy=(welfare[-1] + 0.02, money[-1]))
+                # plt.annotate(str(session.id),
+                #     xy=(welfare[-1] + 0.02, money[-1]))
 
             line_style = 'k-'
             if not session.give_recommendation():
@@ -56,14 +57,15 @@ class MoneyWelfareFigure(Figure):
 
         self.plot_target();
 
-
+        self.plot_legend();
 
         self.set_x_label("Welfare")
-        self.set_y_label("Earnings (Million Dollars)")
-        self.ax.set_yticks([-4e6, -2e6, 0, 2e6, 4e6, 6e6]);
-        self.ax.set_yticklabels(['-4', '-2', '0', '2', '4', '6'])
+        self.set_y_label("Earnings (Million Dollar)")
+        self.ax.set_yticks([-4e6, -2e6, 0, 2e6, 4e6, 6e6, 8e6]);
+        self.ax.set_yticklabels(['-4', '-2', '0', '2', '4', '6', '8'])
+        plt.tick_params(axis='both', which='major', labelsize=self.font_size)
         plt.xlim((-0.1, 4))
-        plt.ylim((-0.4e7, 0.7e7))
+        plt.ylim((-0.4e7, 0.95e7))
 
     def get_marker_shape(self, index):
         if index == 0:
@@ -109,3 +111,28 @@ class MoneyWelfareFigure(Figure):
             return 'g'
         else:
             return 'r'
+
+    def plot_legend(self):
+        plt.scatter(-1, -1, 48, marker = 's',
+            color = "#ffffff", edgecolors = "black",
+            label="None")
+        plt.scatter(-1, -1, 48, marker = 'D',
+            color = "#ffffff", edgecolors = "black",
+            label="Burn")
+        plt.scatter(-1, -1, 48, marker = 'o',
+            color = "#ffffff", edgecolors = "black",
+            label="Disp")
+        plt.scatter(-1, -1, 48, marker = '^',
+            color = "#ffffff", edgecolors = "black",
+            label="Skmr")
+        plt.scatter(-1, -1, 48, marker = 'o',
+            color = "green", edgecolors = "black",
+            label="Win")
+        plt.scatter(-1, -1, 48, marker = 'o',
+            color = "red", edgecolors = "black",
+            label="Lose")
+        plt.legend(ncol=3,
+            numpoints = 1, scatterpoints = 1,
+            fontsize = self.font_size,
+            labelspacing = 0,
+            columnspacing = 0)

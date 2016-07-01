@@ -55,6 +55,26 @@ class SolutionScatterFigure(Figure):
             self.plot_challenge(session, 1)
             self.plot_challenge(session, 2)
 
+        self.plot_legend();
+
+        self.ax.set_ylim(0.7, 4.2)
+        self.ax.set_xlim(0, 41)
+        self.set_x_label('Players')
+        self.set_y_label('Challenges')
+
+        self.ax.set_yticks([1, 2, 3])
+        self.ax.set_yticklabels(['1', '2', '3'])
+
+        self.ax.set_xticks(np.arange(41), minor=True)
+        self.ax.xaxis.grid(which='minor')
+        plt.tick_params(axis='both', which='major', labelsize=self.font_size)
+
+        print("Win change",  win_change_count)
+        print("Win stay",  win_stay_count)
+        print("Lose change",  lose_change_count)
+        print("Lose stay",  lose_stay_count)
+
+    def plot_legend(self):
         plt.scatter(-1, -1, 48, marker = 's',
             color = "#ffffff", edgecolors = "black",
             label="None")
@@ -80,28 +100,11 @@ class SolutionScatterFigure(Figure):
             color = "#ffffff", edgecolors = "black",
             hatch = "////",
             label="w/o Rec")
-
-        self.ax.set_ylim(0.7, 4.2)
-        self.ax.set_xlim(0, 41)
-        self.set_x_label('Players')
-        self.set_y_label('Challenges')
-
         plt.legend(loc="upper center", ncol=3,
             numpoints = 1, scatterpoints = 1,
             fontsize = self.font_size,
             labelspacing = 0,
             columnspacing = 0)
-
-        self.ax.set_yticks([1, 2, 3])
-        self.ax.set_yticklabels(['1', '2', '3'])
-
-        self.ax.set_xticks(np.arange(41), minor=True)
-        self.ax.xaxis.grid(which='minor')
-
-        print("Win change",  win_change_count)
-        print("Win stay",  win_stay_count)
-        print("Lose change",  lose_change_count)
-        print("Lose stay",  lose_stay_count)
 
 
     def plot_challenge(self, session, challenge_number):

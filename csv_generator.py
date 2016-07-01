@@ -1,9 +1,11 @@
+from decision_phase_acceptance_figure import DecisionPhaseAcceptanceFigure
 class CsvGenerator(object):
 
     def __init__(self):
         pass
 
     def generate(self, sessions, global_stat):
+        data_extractor = DecisionPhaseAcceptanceFigure()
         csv_file = open("data.csv", "w")
         csv_file.write(
                 'file, '
@@ -15,6 +17,7 @@ class CsvGenerator(object):
                 'c1.real_time, '
                 'c1.decision_time, '
                 'c1.accp_recommendation, '
+                'c1.actural_accp_recommendation, '
                 'c1.total_recommendation, '
                 'c1.priority_change, '
                 'c1.priority_change(1-3), '
@@ -29,6 +32,7 @@ class CsvGenerator(object):
                 'c2.real_time, '
                 'c2.decision_time, '
                 'c2.accp_recommendation, '
+                'c2.actural_accp_recommendation, '
                 'c2.total_recommendation, '
                 'c2.priority_change, '
                 'c2.priority_change(1-3), '
@@ -43,6 +47,7 @@ class CsvGenerator(object):
                 'c3.real_time, '
                 'c3.decision_time, '
                 'c3.accp_recommendation, '
+                'c3.actural_accp_recommendation, '
                 'c3.total_recommendation, '
                 'c3.priority_change, '
                 'c3.priority_change(1-3), '
@@ -61,6 +66,9 @@ class CsvGenerator(object):
             count = 0
             for challenge in session.challenge:
                 count += 1
+                actual_accp, actual_deny = data_extractor.get_challenge_data(
+                        challenge)
+                print(actual_accp)
                 csv_file.write(
                     '' + str(challenge.money) + ', '
                     '' + str(challenge.welfare) + ', '
@@ -70,6 +78,7 @@ class CsvGenerator(object):
                     '' + str(challenge.get_real_duration()) + ', '
                     '' + str(challenge.get_total_decision_time()) + ', '
                     '' + str(challenge.accepted_recommendation) + ', '
+                    '' + str(sum(actual_accp)) + ', '
                     '' + str(challenge.total_recommendation) + ', '
                     '' + str(challenge.get_num_priority_change()) + ', '
                     '' + str(challenge.get_num_priority_change(1, 3)) + ', '

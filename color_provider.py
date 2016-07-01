@@ -8,11 +8,11 @@ class ColorProvider:
 
     def __getitem__(self, index):
         colors = [
-            '#f21840', 
-            '#46d615',
-            '#1860f2',
-            '#ec6c19',
-            '#2ff4b6',
+            '#cc0000',
+            '#ff9933',
+            '#ccff33',
+            '#009933',
+            '#',
             '#859eef'
         ]
 
@@ -25,6 +25,3 @@ class ColorProvider:
             return ColorProvider.g
         else:
             return ColorProvider.b
-
-
-    
