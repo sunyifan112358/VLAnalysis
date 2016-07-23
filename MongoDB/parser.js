@@ -12,6 +12,11 @@ fs.readFile(file, 'utf8', function(err, data){
     obj = JSON.parse(data);   
 })
 
+
+
+
+
+
 /*
 jsonfile.readFile(file, function(err, obj) {
     
