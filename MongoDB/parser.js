@@ -1,10 +1,10 @@
 var jsonfile = require('jsonfile');
-const path = require('path');
-var file = path.join(__dirname, 'raw_data', 'h9.json')
+var path = require('path');
+var file = path.resolve(__dirname, '../raw_data/h9.json');
 var fs = require('fs');
 var obj;
 
-console.log(file);
+console.log(appDir);
 
 fs.readFile(file, 'utf8', function(err, data){
     
@@ -20,5 +20,5 @@ jsonfile.readFile(file, function(err, obj) {
     }
      
 })
-
 */
+
