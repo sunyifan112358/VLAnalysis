@@ -1,0 +1,133 @@
+{"type":[
+        {
+            "session_start": {
+                "data": {
+                    "session_id":"",
+                    "game_id":"",
+                    "player_id":"",
+                    "client_time":""
+                }
+            }
+        },
+        {
+            "run_begin":{
+                "data": {
+                    "session_id": "",
+                    "run_id": "",
+                    "client_time":"",
+                    "details":{
+                        "current_time":"",
+                        "map":[
+                            "houston_game_0",
+                            "houston_game_1",
+                            "houston_game_2",
+                            "houston_game_3"
+                        ],
+                        "give_recommendation":[
+                            true,
+                            false
+                        ],          
+                        "with_justification":[
+                            true,
+                            false
+                        ],
+                    }   
+                }
+            }
+        },
+        {
+            "action":{
+                "data":{
+                  "action_id": "",
+                  "run_id": "",
+                  "action_type":"",
+                  "action_seqno": "",                  "client_time":"",
+                  details:{
+                      "current_time":"",
+                      "timer": [
+                          "",
+                          null
+                      ],
+                      "phase":[
+                          "Simulation",
+                          "Decision",
+                          null
+                      ],
+                      "map_event":[
+                          {
+                              "oil_spilled":{
+                                  "x": "",
+                                  "y": "",
+                              }
+                          },
+                          {
+                              "ship_generation":{
+                                  "x":"",
+                                  "y":"",
+                                  "ship_id":"",
+                                  "industry":"",
+                                  "ship_name":"",
+                                  "cargo": "",
+                                  "value": "",
+                                  "due_time": ""
+                              } 
+                          },
+                          null
+                      ],
+                      "keystroke":[
+                          {
+                            "mouse0": {
+                                "mousex": "",
+                                "mousey": ""
+                            },
+                          }
+                          "Keypad0"
+                          "Keypad1"
+                          "Keypad2"
+                          "Keypad3"
+                          "Keypad4"
+                          "Keypad5"
+                          "Keypad6"
+                          "Keypad7"
+                          "Keypad8"
+                          "Keypad9"
+                          null
+                      ],
+                      "submit":[
+                          "submit",
+                          null
+                      ],
+                      "ship_id":{
+                          "new_priority":""
+                      },
+                      null
+                  }
+              }
+            }
+        },
+        {
+            "run_end": "",
+            "data": {
+                "run_id":"",
+                "action_acount":"",
+                "client_time":"",
+                "details":{
+                    "current_time":"",
+                    "budget":"",
+                    "welfare":"",
+                    "dock_utilization":""
+                }
+            }
+        },
+        {    
+            "session_end": {
+                "data": {
+                    "session_id":"",
+                    "run_count":"",
+                    "client_time":"",
+                    "details":""
+                }
+            }
+        }
+    ]
+}

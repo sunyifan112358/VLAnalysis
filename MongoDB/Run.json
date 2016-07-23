@@ -1,0 +1,22 @@
+{
+    "session_id": "",
+    "run_id": "",
+    "run_start_client_time": "",
+    "run_end_client_time" : "",
+    "run_start_current_time":"",
+    "run_end_end_time":"",
+    "map":[
+        "houston_game_0",
+        "houston_game_1",
+        "houston_game_2",
+        "houston_game_3"
+    ],
+    "give_recommendation":[
+        true,
+        false
+    ],          
+    "with_justification":[
+        true,
+        false
+    ],
+}

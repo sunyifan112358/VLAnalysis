@@ -1,0 +1,24 @@
+{
+  "name": "vl_database",
+  "version": "1.0.0",
+  "description": "parse raw data into MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunyifan112358/VistaLights.git"
+  },
+  "author": "chisheng liang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunyifan112358/VistaLights/issues"
+  },
+  "homepage": "https://github.com/sunyifan112358/VistaLights#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jsonfile": "^2.3.1",
+    "mongoose": "^4.5.6"
+  }
+}
