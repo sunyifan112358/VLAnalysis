@@ -61,8 +61,7 @@ class CsvGenerator(object):
         for session in sessions:
             csv_file.write(
                 '' + str(session.name) + ', '
-                '' + str(session.id) + ', '
-                '' + str(session.bg_tag) + ', ')
+                '' + str(session.id) + ', ')
             count = 0
             for challenge in session.challenge:
                 count += 1

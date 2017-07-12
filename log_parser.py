@@ -1,5 +1,6 @@
 import re
 import time
+import json
 
 from session import Session
 from run import Run
@@ -16,11 +17,8 @@ class LogParser(object):
         self.next_session_id = 1
 
         self.session_begin_re = re.compile(
-            '{"type":"session_begin", "data":{"game_id":"VistaLights", '
-            '"player_id":"[0-9a-fA-F\-]+", "session_id":"[0-9a-fA-F\-]+", '
-            '"build_id":"", "version":"2.0", "condition":"", '
-            '"client_time":"([0-9\.]+)", '
-            '"details":{"bg":"(CE|STEM|non-STEM)"}}}')
+            r'{"type":"session_begin", "data":{"game_id":"VistaLights", "player_id":"n/a", "session_id":"[0-9a-fA-F\-]+", "build_id":"", "version":"2.0", "condition":"", "client_time":"([0-9\.]+)", "details":{}}}'
+            )
 
         self.session_end_re = re.compile(
             '{"type":"session_end", "data":{"session_id":"[0-9a-fA-F/-]+", ' +
@@ -90,106 +88,60 @@ class LogParser(object):
         lines = file.readlines()
 
         for line in lines:
-            self.process_line(line)
+            # self.process_line(line)
+            entry = json.loads(line)
+            self.process_entry(entry)
+            print entry
 
         session = self.session
         self.session = None
         return session
 
-    def process_line(self, line):
-        if self.try_session_begin(line):
-            return
+    def process_entry(self, entry):
+        if entry['type'] == 'session_begin':
+            self.create_session(entry)
+        elif entry['type'] == "run_begin":
+            self.create_run(entry)
+        elif entry['type'] == "action":
+            pass
+        elif entry['type'] == "run_end":
+            self.end_run(entry)
+        else:
+            # ignore
+            pass
 
-        if self.try_run_begin(line):
-            return
 
-        if self.try_key_stroke_action(line):
-            return
-
-        if self.try_recommendation_action(line):
-            return
-
-        if self.try_phase_action(line):
-            return
-
-        if self.try_cleaning_action(line):
-            return
-
-        if self.try_priority_action(line):
-            return
-
-        if self.try_run_end(line):
-            return
-
-        if self.try_session_end(line):
-            return
-
-    def try_session_begin(self, line):
-        match = self.session_begin_re.match(line)
-        if match != None:
-            self.create_session(match)
-            return True
-        return False
-
-    def create_session(self, match):
+    def create_session(self, entry):
         self.session = Session()
         self.session.name = self.file_name[0:-5]
-        self.session.bg_tag = match.group(2)
 
         self.session.id = self.next_session_id
         self.next_session_id += 1
 
-
         print("Session created: " + self.file_name)
 
-    def try_session_end(self, line):
-        if self.session_end_re.match(line) != None:
-            self.end_session()
-            return True
-        return False
-
-    def end_session(self):
-        print("Session ended")
-    
-    def try_run_begin(self, line):
-        match = self.run_begin_re.match(line) 
-        if match != None:
-            self.create_run(match)
-            return True
-        return False
-
-    def create_run(self, match):
+    def create_run(self, entry):
         self.run = Run()
+        print entry
 
-        map_name = match.group(4)
-        self.run.map_file = map_name
+        self.run.map_file = entry["data"]["details"]["map"]
+        #
+        # self.run.give_recommendation = (match.group(5) == 'True')
+        # self.run.with_justification = (match.group(6) == 'True')
+        #
+        # self.run.start_real_time = float(match.group(2))
 
-        self.run.give_recommendation = (match.group(5) == 'True')
-        self.run.with_justification = (match.group(6) == 'True')
+        self.session.add_run(self.run)
 
-        self.run.start_real_time = float(match.group(2))
-
-    def try_run_end(self, line):
-        match = self.run_end_re.match(line)
-        if match != None:
-            self.end_run(match)
-            return True
-        return False
-        
-    def end_run(self, match):
-        self.run.money = float(match.group(3))
-        self.run.welfare = float(match.group(4))
-        self.run.dock_utilization = float(match.group(5))
-        self.run.end_real_time = float(match.group(1))
-        
-        if self.run.map_file == 'houston_game_0':
-            self.run.is_tutorial = True
-        else:
-            self.session.add_run(self.run)
-
-
-
-        self.run = None
+    def end_run(self, entry):
+        # self.run.money = float(match.group(3))
+        # self.run.welfare = float(match.group(4))
+        # self.run.dock_utilization = float(match.group(5))
+        # self.run.end_real_time = float(match.group(1))
+        #
+        # if self.run.map_file == 'houston_game_0':
+        #     self.run.is_tutorial = True
+        pass
 
     def try_key_stroke_action(self, line):
         match = self.key_stroke_action_re.match(line)

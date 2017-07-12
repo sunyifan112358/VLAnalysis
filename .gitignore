@@ -71,3 +71,6 @@ target/
 *.pdf
 .Rhistory
 *~
+
+# IDE
+.idea

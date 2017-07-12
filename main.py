@@ -6,27 +6,26 @@ from log_parser import LogParser
 from global_stat import GlobalStat
 from csv_generator import CsvGenerator
 from action_csv_generator import ActionCsvGenerator
-from money_welfare_figure import MoneyWelfareFigure
-from money_distribution_figure import MoneyDistributionFigure
-from money_scatter_figure import MoneyScatterFigure
-from welfare_distribution_figure import WelfareDistributionFigure
-from welfare_scatter_figure import WelfareScatterFigure
-from real_time_distribution_figure import RealTimeDistributionFigure
-from dendrogram_figure import DendrogramFigure
-from acceptance_money_figure import AcceptanceMoneyFigure
-from acceptance_welfare_figure import AcceptanceWelfareFigure
-from key_stroke_decision_figure import KeyStrokeDecisionFigure
-from solution_money_figure import SolutionMoneyFigure
-from solution_welfare_figure import SolutionWelfareFigure
-from money_welfare_cluster_figure import MoneyWelfareClusterFigure
-from bg_money_distribution_figure import BgMoneyDistributionFigure
-from bg_welfare_distribution_figure import BgWelfareDistributionFigure
-from bg_accept_rant_figure import BgAcceptanceRateFigure
-from action_type_figure import ActionTypeFigure
-from decision_matrix_figure import DecisionMatrixFigure
-from decision_phase_acceptance_figure import DecisionPhaseAcceptanceFigure
-from solution_scatter_figure import SolutionScatterFigure
-
+#  from money_welfare_figure import MoneyWelfareFigure
+#  from money_distribution_figure import MoneyDistributionFigure
+#  from money_scatter_figure import MoneyScatterFigure
+#  from welfare_distribution_figure import WelfareDistributionFigure
+#  from welfare_scatter_figure import WelfareScatterFigure
+#  from real_time_distribution_figure import RealTimeDistributionFigure
+#  from dendrogram_figure import DendrogramFigure
+#  from acceptance_money_figure import AcceptanceMoneyFigure
+#  from acceptance_welfare_figure import AcceptanceWelfareFigure
+#  from key_stroke_decision_figure import KeyStrokeDecisionFigure
+#  from solution_money_figure import SolutionMoneyFigure
+#  from solution_welfare_figure import SolutionWelfareFigure
+#  from money_welfare_cluster_figure import MoneyWelfareClusterFigure
+#  from bg_money_distribution_figure import BgMoneyDistributionFigure
+#  from bg_welfare_distribution_figure import BgWelfareDistributionFigure
+#  from bg_accept_rant_figure import BgAcceptanceRateFigure
+#  from action_type_figure import ActionTypeFigure
+#  from decision_matrix_figure import DecisionMatrixFigure
+#  from decision_phase_acceptance_figure import DecisionPhaseAcceptanceFigure
+#  from solution_scatter_figure import SolutionScatterFigure
 
 def main():
     files = get_all_files()
@@ -36,7 +35,7 @@ def main():
     global_stat.calculate(sessions)
 
     output_data_in_csv(sessions, global_stat)
-    plot_all_figures(sessions, global_stat)
+    #  plot_all_figures(sessions, global_stat)
 
 
 def get_all_files():
@@ -55,6 +54,8 @@ def parse_all_sessions(files):
     for file in files:
         session = logParser.parse(file)
         sessions.append(session)
+
+    print sessions
 
     return sessions
 

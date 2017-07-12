@@ -4,14 +4,12 @@ class Session(object):
         self.name = ""
         self.id = 0
         self.cluster_tags = {}
-        self.bg_tag = ""
 
         self.challenge = []
 
     def __str__(self):
         string = ("Session (" + str(self.id) + "): " + self.name + "\n"
             "give_recommendation: " + str(self.give_recommendation()) + "\n"
-            "bg_tag: " + str(self.bg_tag) + "\n"
             "cluster_tags: " + str(self.cluster_tags) + "\n")
         
         for i in range(len(self.challenge)):
