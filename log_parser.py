@@ -89,7 +89,12 @@ class LogParser(object):
 
         for line in lines:
             # self.process_line(line)
-            entry = json.loads(line)
+            entry = None 
+            try:
+                entry = json.loads(line)
+            except:
+                print line, "is not decodable"
+                continue
             self.process_entry(entry)
             print entry
 
